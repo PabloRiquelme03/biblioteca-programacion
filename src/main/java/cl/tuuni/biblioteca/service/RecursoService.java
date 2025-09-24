@@ -13,6 +13,6 @@ public class RecursoService {
     private final RecursoRepo repo;
 
     public List<RecursoEducativo> listarPorNivel(Nivel nivel) {
-        return repo.findByNivelAndActivoTrue(nivel);
+        return repo.findByNivel(nivel);
     }
 }
