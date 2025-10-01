@@ -1,0 +1,263 @@
+/* =========================
+   Variables de tema
+   ========================= */
+:root{
+    --bg: #ffffff;
+    --text: #111827;          /* slate-900 */
+    --muted: #6b7280;         /* slate-500 */
+    --card: #ffffff;
+    --border: rgba(0,0,0,.08);
+    --shadow: 0 6px 30px rgba(0,0,0,.06);
+
+    --nav-bg: #f8f9fa;
+    --nav-border: rgba(0,0,0,.08);
+
+    --badge-dark-bg: #111827;
+    --badge-dark-fg: #ffffff;
+    --badge-info-bg: #0dcaf0; /* bs-info */
+    --badge-secondary-bg: #6c757d;
+
+    --link: #0d6efd;
+}
+
+.dark{
+    --bg: #0b1220;           /* azul muy oscuro */
+    --text: #e5e7eb;         /* slate-200 */
+    --muted: #9ca3af;        /* slate-400 */
+    --card: #0f172a;         /* slate-900 */
+    --border: rgba(255,255,255,.08);
+    --shadow: 0 10px 30px rgba(0,0,0,.6);
+
+    --nav-bg: #0f172a;
+    --nav-border: rgba(255,255,255,.08);
+
+    --badge-dark-bg: #e5e7eb;
+    --badge-dark-fg: #111827;
+    --badge-info-bg: #0ea5e9; /* azul más vivo */
+    --badge-secondary-bg: #475569;
+
+    --link: #60a5fa;         /* azul suave */
+}
+
+/* Base */
+html, body{ height: 100%; }
+body{
+    background: var(--bg);
+    color: var(--text);
+}
+
+/* Navbar del layout */
+.navbar{
+    background: var(--nav-bg) !important;
+    border-bottom: 1px solid var(--nav-border) !important;
+}
+.navbar .navbar-brand,
+.navbar .btn{ color: var(--text); }
+
+/* Tarjetas de recursos */
+.card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+.card .card-text{ color: var(--muted); }
+
+/* Badges coherentes con el tema */
+.badge.text-bg-dark{
+    background: var(--badge-dark-bg) !important;
+    color: var(--badge-dark-fg) !important;
+}
+.badge.text-bg-info{
+    background: var(--badge-info-bg) !important;
+}
+.badge.text-bg-secondary{
+    background: var(--badge-secondary-bg) !important;
+}
+
+/* Enlaces */
+a{ color: var(--link); }
+a:hover{ opacity: .9; }
+
+/* =========================
+   Auth split (login/registro)
+   ========================= */
+.auth-wrap {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* imagen / form */
+}
+
+.auth-hero {
+    position: relative;
+    background: url('/imgs/login-hero.jpg') center/cover no-repeat;
+}
+.auth-hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: rgba(0,0,0,0.35);
+}
+.auth-hero .brand {
+    position: absolute; top: 24px; left: 24px; z-index: 1;
+    color: #fff; font-weight: 600; letter-spacing: .3px;
+}
+.auth-hero .caption {
+    position: absolute; bottom: 24px; left: 24px; right: 24px; z-index: 1;
+    color: #fff;
+}
+.auth-hero .caption h2 { font-weight: 700; margin-bottom: .25rem; }
+.auth-hero .caption p { opacity: .9; margin: 0; }
+
+.auth-panel {
+    display: flex; align-items: center; justify-content: center;
+    padding: 48px 32px;
+    background: var(--bg);
+    color: var(--text);
+}
+.auth-card {
+    width: 100%; max-width: 420px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; box-shadow: var(--shadow);
+    padding: 28px;
+}
+.auth-title { font-weight: 700; margin-bottom: 6px; }
+.auth-muted  { color: var(--muted); font-size: .95rem; margin-bottom: 18px; }
+
+.auth-card .form-control {
+    padding-top: .7rem; padding-bottom: .7rem;
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+/* Botón flotante de tema en pantallas auth */
+.theme-fab{
+    position: fixed; right: 16px; top: 16px; z-index: 5;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .auth-wrap { grid-template-columns: 1fr; }
+    .auth-hero { min-height: 36vh; }
+}
+/* =========================
+   Mejora de contraste en modo oscuro
+   ========================= */
+
+/* Títulos y textos */
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+    color: #e5e7eb; /* slate-200 */
+}
+.dark .text-muted,
+.dark .card .card-text {
+    color: #cbd5e1; /* slate-300 */
+}
+
+
+/* Tarjetas de recursos */
+.dark .card {
+    background: var(--card);
+    border-color: var(--border);
+    box-shadow: var(--shadow);
+}
+.dark .card .card-title {
+    color: #e5e7eb; /* más legible sobre fondo oscuro */
+}
+.dark .card .card-footer {
+    background: #0b1220;        /* coordina con fondo */
+    border-top: 1px solid var(--border);
+}
+
+/* Controles de formulario generales (listas, inputs) */
+.form-control, .form-select {
+    background: var(--bg);
+    color: var(--text);
+    border-color: var(--border);
+}
+.dark .form-control, .dark .form-select {
+    background: #0f172a;  /* mismo que --card, pero ligeramente distinto al fondo */
+    color: #e5e7eb;
+    border-color: var(--border);
+}
+.dark .form-control::placeholder {
+    color: #9ca3af; /* slate-400 */
+}
+
+/* Botones outline en navbar (que no queden "lavados") */
+.dark .btn-outline-primary {
+    color: #93c5fd;                 /* azul claro */
+    border-color: rgba(147,197,253,.5);
+}
+.dark .btn-outline-primary:hover {
+    background: rgba(147,197,253,.1);
+    border-color: rgba(147,197,253,.8);
+}
+.dark .btn-outline-secondary {
+    color: #e5e7eb;
+    border-color: var(--border);
+}
+.dark .btn-outline-secondary:hover {
+    background: rgba(255,255,255,.06);
+}
+
+/* Badges ya adaptadas pero reforzamos legibilidad */
+.dark .badge.text-bg-info { color: #0b1220; }
+.dark .badge.text-bg-secondary { color: #e5e7eb; }
+
+/* =========================
+   Ajustes extra modo oscuro
+   ========================= */
+
+/* Subtítulos (descripciones de recursos) */
+.dark .card .card-text {
+    color: #d1d5db; /* gris claro legible (tailwind slate-300) */
+}
+
+/* Footer de la tarjeta */
+.dark .card .card-footer {
+    background: #1e293b;   /* slate-800 */
+    border-top: 1px solid var(--border);
+}
+
+/* Botón "Abrir" en modo oscuro más integrado */
+.dark .card .btn-primary {
+    background-color: #2563eb; /* azul vivo */
+    border-color: #2563eb;
+}
+.dark .card .btn-primary:hover {
+    background-color: #1d4ed8;
+    border-color: #1d4ed8;
+}
+/* Subtítulos claros en modo oscuro */
+.dark .card .card-body .card-text {
+    color: #e2e8f0 !important;  /* gris claro legible */
+}
+/* Texto secundario dentro de login/registro en dark */
+.dark .auth-card .auth-muted,
+.dark .auth-card .text-muted {
+    color: #cbd5e1 !important;  /* gris claro (slate-300) */
+}
+
+/* Enlaces en el auth-card */
+.dark .auth-card a {
+    color: #60a5fa !important; /* azul claro */
+}
+.dark .auth-card a:hover {
+    color: #93c5fd !important; /* azul más suave al pasar */
+}
+/* Footer en modo oscuro */
+.dark footer,
+.dark footer .text-muted {
+    color: #cbd5e1 !important;  /* gris claro legible */
+}
+/* Navbar: correo del usuario más legible en dark */
+.dark .navbar .text-muted,
+.dark .navbar .text-muted * {
+    color: #e5e7eb !important; /* slate-200 */
+}
+
+/* Cards: textos secundarios claros (incluye "Completado el ...") */
+.dark .card .text-muted {
+    color: #cbd5e1 !important; /* slate-300 */
+}
+

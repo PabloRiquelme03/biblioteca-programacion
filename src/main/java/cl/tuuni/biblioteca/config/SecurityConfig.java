@@ -19,14 +19,15 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/", "/recursos", "/css/**", "/js/**", "/imgs/**",
-                                "/auth/**", "/error").permitAll()  // 👈 incluye /error
+                                "/auth/**", "/error").permitAll()
+                        .requestMatchers("/perfil/**", "/progreso/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/auth/login").permitAll()
-                        .loginProcessingUrl("/auth/login")   // 👈 procesa el POST aquí
-                        .failureUrl("/auth/login?error")     // 👈 si falla, muestra ?error
-                        .defaultSuccessUrl("/", true)        // 👈 si ok, manda a /
+                        .loginProcessingUrl("/auth/login")
+                        .failureUrl("/auth/login?error")
+                        .defaultSuccessUrl("/", true)
                 )
                 .logout(l -> l.logoutUrl("/logout").logoutSuccessUrl("/"))
                 .csrf(Customizer.withDefaults());

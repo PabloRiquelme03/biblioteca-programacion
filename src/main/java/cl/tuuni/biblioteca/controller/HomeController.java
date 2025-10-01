@@ -1,12 +1,15 @@
 package cl.tuuni.biblioteca.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+
     @GetMapping("/")
-    public String index() {
-        return "index"; // carga templates/index.html
+    public String home(Model model) {
+        model.addAttribute("title", "Inicio");
+        return "index"; // <-- usa templates/index.html
     }
 }

@@ -10,13 +10,22 @@
     <link rel="stylesheet" th:href="@{/css/app.css}">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-light border-bottom" th:fragment="navbar">
+<nav class="navbar navbar-expand-lg border-bottom" th:fragment="navbar">
     <div class="container">
         <a class="navbar-brand fw-semibold" th:href="@{/}">Biblioteca</a>
-        <div class="ms-auto d-flex gap-2">
 
-            <!-- Botón de Recursos siempre visible -->
+        <div class="ms-auto d-flex gap-2 align-items-center">
+
+            <!-- Recursos siempre visible -->
             <a class="btn btn-outline-primary" th:href="@{/recursos}">Recursos</a>
+
+            <!-- Link a Mi progreso si está autenticado -->
+            <a class="btn btn-outline-success" th:href="@{/perfil/progreso}" sec:authorize="isAuthenticated()">
+                Mi progreso
+            </a>
+
+            <!-- Botón de tema -->
+            <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm">🌙</button>
 
             <!-- Si NO está autenticado -->
             <div sec:authorize="!isAuthenticated()">
