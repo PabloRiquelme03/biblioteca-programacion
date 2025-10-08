@@ -8,11 +8,6 @@
 </head>
 <body>
 
-<!-- Botón flotante de tema -->
-<div class="theme-fab">
-    <button id="themeToggleFab" class="btn btn-outline-secondary btn-sm" type="button">🌙</button>
-</div>
-
 <div class="auth-wrap">
     <!-- Imagen -->
     <section class="auth-hero">
@@ -54,9 +49,7 @@
 
             <div class="d-flex justify-content-between align-items-center mt-3">
                 <a th:href="@{/}" class="text-decoration-none">← Volver al inicio</a>
-                <span class="text-muted">¿Ya tienes cuenta?
-                  <a th:href="@{/auth/login}">Ingresar</a>
-                </span>
+                <span class="text-muted">¿Ya tienes cuenta? <a th:href="@{/auth/login}">Ingresar</a></span>
             </div>
         </div>
     </section>

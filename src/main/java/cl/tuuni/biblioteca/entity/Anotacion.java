@@ -2,24 +2,45 @@ package cl.tuuni.biblioteca.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDateTime;
 
-@Entity @Getter @Setter @NoArgsConstructor @AllArgsConstructor @Builder
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Anotacion {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(optional=false) private Usuario usuario;
+    // Relación con usuario: toda anotación pertenece a un usuario
+    @ManyToOne(optional = false)
+    private Usuario usuario;
 
-    private Long recursoId;  // opcional: enlazar a recurso/lección
-    private Long leccionId;  // opcional
+    // Enlaces opcionales (por si luego asocias notas a recursos o lecciones específicas)
+    private Long recursoId;
+    private Long leccionId;
 
-    @Column(nullable=false) private String titulo;
-    @Column(nullable=false, length=4000) private String contenido;
+    // --- Campos principales ---
+    @Column(nullable = false, length = 50)
+    private String titulo; // Máx 50 caracteres
 
-    @Builder.Default private LocalDateTime creado = LocalDateTime.now();
-    @Builder.Default private LocalDateTime actualizado = LocalDateTime.now();
+    @Column(nullable = false, length = 300)
+    private String contenido; // Máx 300 caracteres
 
-    @PreUpdate void touch() { actualizado = LocalDateTime.now(); }
+    // --- Fechas automáticas ---
+    @Builder.Default
+    private LocalDateTime creado = LocalDateTime.now();
+
+    @Builder.Default
+    private LocalDateTime actualizado = LocalDateTime.now();
+
+    // --- Actualiza la fecha cuando se modifica ---
+    @PreUpdate
+    void touch() {
+        actualizado = LocalDateTime.now();
+    }
 }

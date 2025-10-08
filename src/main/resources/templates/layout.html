@@ -16,22 +16,15 @@
 
         <div class="ms-auto d-flex gap-2 align-items-center">
 
-            <!-- Recursos siempre visible -->
+            <!-- Navegación principal -->
             <a class="btn btn-outline-primary" th:href="@{/recursos}">Recursos</a>
-
-            <!-- NUEVO: Cursos (catálogo público) -->
             <a class="btn btn-outline-primary" th:href="@{/cursos}">Cursos</a>
-
-            <!-- NUEVO: Notas (solo autenticado) -->
-            <a class="btn btn-outline-primary" th:href="@{/notas}" sec:authorize="isAuthenticated()">Notas</a>
+            <a class="btn btn-outline-primary" th:href="@{/notas}">Notas</a>
 
             <!-- Link a Mi progreso si está autenticado -->
             <a class="btn btn-outline-success" th:href="@{/perfil/progreso}" sec:authorize="isAuthenticated()">
                 Mi progreso
             </a>
-
-            <!-- Botón de tema -->
-            <button id="themeToggle" type="button" class="btn btn-outline-secondary btn-sm">🌙</button>
 
             <!-- Si NO está autenticado -->
             <div sec:authorize="!isAuthenticated()">

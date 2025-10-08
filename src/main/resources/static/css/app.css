@@ -1,30 +1,11 @@
 /* =========================
-   Variables de tema
+   Variables (modo oscuro fijo)
    ========================= */
 :root{
-    --bg: #ffffff;
-    --text: #111827;          /* slate-900 */
-    --muted: #6b7280;         /* slate-500 */
-    --card: #ffffff;
-    --border: rgba(0,0,0,.08);
-    --shadow: 0 6px 30px rgba(0,0,0,.06);
-
-    --nav-bg: #f8f9fa;
-    --nav-border: rgba(0,0,0,.08);
-
-    --badge-dark-bg: #111827;
-    --badge-dark-fg: #ffffff;
-    --badge-info-bg: #0dcaf0; /* bs-info */
-    --badge-secondary-bg: #6c757d;
-
-    --link: #0d6efd;
-}
-
-.dark{
-    --bg: #0b1220;           /* azul muy oscuro */
-    --text: #e5e7eb;         /* slate-200 */
-    --muted: #9ca3af;        /* slate-400 */
-    --card: #0f172a;         /* slate-900 */
+    --bg: #0b1220;           /* fondo base */
+    --text: #e5e7eb;         /* texto principal */
+    --muted: #cbd5e1;        /* texto secundario */
+    --card: #0f172a;         /* tarjetas/nav */
     --border: rgba(255,255,255,.08);
     --shadow: 0 10px 30px rgba(0,0,0,.6);
 
@@ -33,10 +14,10 @@
 
     --badge-dark-bg: #e5e7eb;
     --badge-dark-fg: #111827;
-    --badge-info-bg: #0ea5e9; /* azul más vivo */
+    --badge-info-bg: #0ea5e9;
     --badge-secondary-bg: #475569;
 
-    --link: #60a5fa;         /* azul suave */
+    --link: #60a5fa;         /* enlaces */
 }
 
 /* Base */
@@ -46,7 +27,7 @@ body{
     color: var(--text);
 }
 
-/* Navbar del layout */
+/* Navbar */
 .navbar{
     background: var(--nav-bg) !important;
     border-bottom: 1px solid var(--nav-border) !important;
@@ -54,29 +35,64 @@ body{
 .navbar .navbar-brand,
 .navbar .btn{ color: var(--text); }
 
-/* Tarjetas de recursos */
+/* Enlaces */
+a{ color: var(--link); }
+a:hover{ opacity: .9; }
+
+/* Tarjetas (recursos / cursos / lecciones) */
 .card{
     background: var(--card);
     border: 1px solid var(--border);
     box-shadow: var(--shadow);
 }
+.card .card-title{ color: var(--text); }
 .card .card-text{ color: var(--muted); }
+.card .card-footer{
+    background: #1e293b;     /* slate-800 */
+    border-top: 1px solid var(--border);
+}
 
-/* Badges coherentes con el tema */
+/* Badges */
 .badge.text-bg-dark{
     background: var(--badge-dark-bg) !important;
     color: var(--badge-dark-fg) !important;
 }
 .badge.text-bg-info{
     background: var(--badge-info-bg) !important;
+    color: #0b1220;
 }
 .badge.text-bg-secondary{
     background: var(--badge-secondary-bg) !important;
+    color: #e5e7eb;
 }
 
-/* Enlaces */
-a{ color: var(--link); }
-a:hover{ opacity: .9; }
+/* Botones outline (más legibles en oscuro) */
+.btn-outline-primary{
+    color: #93c5fd;
+    border-color: rgba(147,197,253,.5);
+}
+.btn-outline-primary:hover{
+    background: rgba(147,197,253,.1);
+    border-color: rgba(147,197,253,.8);
+}
+.btn-outline-secondary{
+    color: #e5e7eb;
+    border-color: var(--border);
+}
+.btn-outline-secondary:hover{
+    background: rgba(255,255,255,.06);
+}
+
+/* Formularios */
+.form-control, .form-select {
+    background: #0f172a;
+    color: #e5e7eb;
+    border-color: var(--border);
+}
+.form-control::placeholder { color: #9ca3af; }
+
+/* Footer */
+footer, .text-muted{ color: var(--muted) !important; }
 
 /* =========================
    Auth split (login/registro)
@@ -121,18 +137,12 @@ a:hover{ opacity: .9; }
 }
 .auth-title { font-weight: 700; margin-bottom: 6px; }
 .auth-muted  { color: var(--muted); font-size: .95rem; margin-bottom: 18px; }
-
 .auth-card .form-control {
     padding-top: .7rem; padding-bottom: .7rem;
     border-radius: 10px;
-    background: var(--bg);
-    color: var(--text);
+    background: #0f172a;
+    color: #e5e7eb;
     border-color: var(--border);
-}
-
-/* Botón flotante de tema en pantallas auth */
-.theme-fab{
-    position: fixed; right: 16px; top: 16px; z-index: 5;
 }
 
 /* Responsive */
@@ -140,129 +150,11 @@ a:hover{ opacity: .9; }
     .auth-wrap { grid-template-columns: 1fr; }
     .auth-hero { min-height: 36vh; }
 }
-/* =========================
-   Mejora de contraste en modo oscuro
-   ========================= */
-
-/* Títulos y textos */
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
-    color: #e5e7eb; /* slate-200 */
-}
-.dark .text-muted,
-.dark .card .card-text {
-    color: #cbd5e1; /* slate-300 */
-}
-
-
-/* Tarjetas de recursos */
-.dark .card {
-    background: var(--card);
-    border-color: var(--border);
-    box-shadow: var(--shadow);
-}
-.dark .card .card-title {
-    color: #e5e7eb; /* más legible sobre fondo oscuro */
-}
-.dark .card .card-footer {
-    background: #0b1220;        /* coordina con fondo */
-    border-top: 1px solid var(--border);
-}
-
-/* Controles de formulario generales (listas, inputs) */
-.form-control, .form-select {
-    background: var(--bg);
-    color: var(--text);
-    border-color: var(--border);
-}
-.dark .form-control, .dark .form-select {
-    background: #0f172a;  /* mismo que --card, pero ligeramente distinto al fondo */
-    color: #e5e7eb;
-    border-color: var(--border);
-}
-.dark .form-control::placeholder {
-    color: #9ca3af; /* slate-400 */
-}
-
-/* Botones outline en navbar (que no queden "lavados") */
-.dark .btn-outline-primary {
-    color: #93c5fd;                 /* azul claro */
-    border-color: rgba(147,197,253,.5);
-}
-.dark .btn-outline-primary:hover {
-    background: rgba(147,197,253,.1);
-    border-color: rgba(147,197,253,.8);
-}
-.dark .btn-outline-secondary {
-    color: #e5e7eb;
-    border-color: var(--border);
-}
-.dark .btn-outline-secondary:hover {
-    background: rgba(255,255,255,.06);
-}
-
-/* Badges ya adaptadas pero reforzamos legibilidad */
-.dark .badge.text-bg-info { color: #0b1220; }
-.dark .badge.text-bg-secondary { color: #e5e7eb; }
 
 /* =========================
-   Ajustes extra modo oscuro
+   Chips / progreso / lista lecciones
    ========================= */
-
-/* Subtítulos (descripciones de recursos) */
-.dark .card .card-text {
-    color: #d1d5db; /* gris claro legible (tailwind slate-300) */
-}
-
-/* Footer de la tarjeta */
-.dark .card .card-footer {
-    background: #1e293b;   /* slate-800 */
-    border-top: 1px solid var(--border);
-}
-
-/* Botón "Abrir" en modo oscuro más integrado */
-.dark .card .btn-primary {
-    background-color: #2563eb; /* azul vivo */
-    border-color: #2563eb;
-}
-.dark .card .btn-primary:hover {
-    background-color: #1d4ed8;
-    border-color: #1d4ed8;
-}
-/* Subtítulos claros en modo oscuro */
-.dark .card .card-body .card-text {
-    color: #e2e8f0 !important;  /* gris claro legible */
-}
-/* Texto secundario dentro de login/registro en dark */
-.dark .auth-card .auth-muted,
-.dark .auth-card .text-muted {
-    color: #cbd5e1 !important;  /* gris claro (slate-300) */
-}
-
-/* Enlaces en el auth-card */
-.dark .auth-card a {
-    color: #60a5fa !important; /* azul claro */
-}
-.dark .auth-card a:hover {
-    color: #93c5fd !important; /* azul más suave al pasar */
-}
-/* Footer en modo oscuro */
-.dark footer,
-.dark footer .text-muted {
-    color: #cbd5e1 !important;  /* gris claro legible */
-}
-/* Navbar: correo del usuario más legible en dark */
-.dark .navbar .text-muted,
-.dark .navbar .text-muted * {
-    color: #e5e7eb !important; /* slate-200 */
-}
-
-/* Cards: textos secundarios claros (incluye "Completado el ...") */
-.dark .card .text-muted {
-    color: #cbd5e1 !important; /* slate-300 */
-}
-/* -------------------------------------------------
-   Cursos: detalle de lecciones (estilos UI)
-   ------------------------------------------------- */
+.subtitle{ color: var(--muted); font-size: .95rem; }
 
 .chip {
     display: inline-flex; align-items: center; gap: .35rem;
@@ -281,55 +173,159 @@ a:hover{ opacity: .9; }
     box-shadow: var(--shadow);
 }
 .list-lessons .lesson-item.is-done {
-    background: rgba(34,197,94,.06);        /* verde muy suave */
+    background: linear-gradient(0deg, rgba(34,197,94,.06), rgba(34,197,94,.06)), var(--card);
     border-color: rgba(34,197,94,.25);
 }
 .lesson-num {
     width: 36px; height: 36px; border-radius: 50%;
     display: grid; place-items: center;
     font-weight: 700;
-    background: rgba(99,102,241,.15);       /* indigo leve */
-    color: #c7d2fe;                          /* indigo-200 aprox */
+    background: rgba(13,110,253,.25);
+    color: #e0e7ff;
 }
-.dark .lesson-num { color: #e0e7ff; }
+.list-lessons .list-group-item { padding: 1rem 1rem; }
 
-.list-lessons .list-group-item {
-    padding: 1rem 1rem;
-}
-
+/* Barra de progreso */
 .progress { background: rgba(148,163,184,.25); }
-.progress-bar { background: #22c55e; }      /* verde */
-/* Subtítulo bajo el título del curso */
-.subtitle{
-    color: var(--muted);
-    font-size: .95rem;
-}
-.dark .subtitle{
-    color: #cbd5e1; /* gris claro legible en oscuro */
+.progress-bar { background: #22c55e; }
+/* ====== Claridad en modo oscuro (títulos, textos, inputs) ====== */
+
+/* Encabezados bien visibles */
+h1, h2, h3, h4, h5, h6 {
+    color: #e8edf7; /* muy legible */
 }
 
-/* Chips rápidos (opcional, por si no los tenías) */
-.chip{
-    display:inline-flex; align-items:center; gap:.35rem;
-    padding:.25rem .55rem; border-radius:999px; font-size:.85rem;
-    background:rgba(0,0,0,.04); border:1px solid var(--border);
+/* Títulos de tarjetas y subtítulos */
+.card .card-title,
+.card h5 {
+    color: #e8edf7;
 }
-.dark .chip{ background:rgba(255,255,255,.06); }
-
-/* Ajuste de la lista de lecciones (si no lo tenías ya) */
-.list-lessons .lesson-item{
-    border:1px solid var(--border);
-    background: var(--card);
-}
-.list-lessons .lesson-item.is-done{
-    opacity:.9; border-color: rgba(60,180,75,.35);
-    background: linear-gradient(0deg, rgba(60,180,75,.06), rgba(60,180,75,.06)), var(--card);
+.card .card-text {
+    color: #cbd5e1; /* gris claro legible */
 }
 
-.list-lessons .lesson-num{
-    width:32px;height:32px;border-radius:50%;
-    display:grid;place-items:center;font-weight:700;
-    background: rgba(13,110,253,.12); color:#fff;
+/* Textos "muted" un poco más claros en dark */
+.text-muted {
+    color: #a8b3c3 !important;
 }
-.dark .list-lessons .lesson-num{ background: rgba(13,110,253,.25); }
 
+/* Inputs/textarea legibles en dark */
+.form-control, .form-select, textarea {
+    background: #0f172a;
+    color: #e8edf7;
+    border-color: rgba(255,255,255,.12);
+}
+.form-control:focus, .form-select:focus, textarea:focus {
+    background: #0f172a;
+    color: #ffffff;
+    border-color: #3b82f6; /* azul */
+    box-shadow: 0 0 0 .2rem rgba(59,130,246,.15);
+}
+.form-control::placeholder, textarea::placeholder {
+    color: #94a3b8; /* placeholder legible */
+}
+
+/* Chips/etiquetas */
+.badge.text-bg-dark { color:#0b1220 !important; }
+.badge.text-bg-secondary { color:#e5e7eb !important; }
+
+/* ====== Página de notas ====== */
+.note-card {
+    background: #0f172a;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+.note-title { color:#e8edf7; }
+.note-text  { color:#cbd5e1; }
+
+/* Contador de caracteres */
+.char-hint {
+    color:#a8b3c3;
+    font-size:.85rem;
+}
+
+/* ====== Hero con video (index) ====== */
+.hero-video {
+    position: relative;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #0b1220;
+}
+.hero-video video {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+    filter: brightness(.75); /* oscurece un poco para que el texto resalte */
+}
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    align-content: center;
+    padding: 2.5rem 2rem;
+}
+.hero-overlay h1 { color: #f8fafc; }
+.hero-overlay p  { color: #dbeafe; }
+.hero-video-el{
+    display: block;
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    filter: brightness(0.7);
+    border-radius: 18px;
+}
+
+.hero-video .display-6{ color:#f8fafc; }
+.hero-video p{ color:#dbeafe; }
+/* -------- Estilos para notas -------- */
+.card.bg-dark {
+    background-color: #111827 !important;
+}
+
+.card.bg-dark .text-light {
+    color: #f9fafb !important;
+}
+
+.card.bg-dark .text-white {
+    color: #ffffff !important;
+}
+
+.card.bg-dark .text-muted {
+    color: #9ca3af !important;
+}
+
+.card.bg-dark:hover {
+    box-shadow: 0 0 12px rgba(255,255,255,0.08);
+    transform: translateY(-2px);
+    transition: all .2s ease-in-out;
+}
+/* -------- Estilos de Notas -------- */
+.contador {
+    display: block;
+    font-size: 0.8rem;
+    text-align: right;
+}
+
+.card.bg-dark {
+    background-color: #111827 !important;
+}
+
+.card.bg-dark .text-light {
+    color: #f3f4f6 !important;
+}
+
+.card.bg-dark .text-white {
+    color: #ffffff !important;
+}
+
+.card.bg-dark .text-muted {
+    color: #9ca3af !important;
+}
+
+.card.bg-dark:hover {
+    box-shadow: 0 0 12px rgba(255,255,255,0.08);
+    transform: translateY(-2px);
+    transition: all .2s ease-in-out;
+}

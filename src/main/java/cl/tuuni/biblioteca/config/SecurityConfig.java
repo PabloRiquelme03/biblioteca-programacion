@@ -18,41 +18,38 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // público
+                        // recursos públicos
                         .requestMatchers(
                                 "/", "/recursos",
-                                "/css/**", "/js/**", "/imgs/**",
-                                "/auth/**",        // login, registro, forgot, reset
+                                "/css/**", "/js/**", "/imgs/**", "/videos/**", // 👈 AÑADIDO /videos/**
+                                "/auth/**",
                                 "/error",
-                                "/cursos", "/cursos/*"  // listar y ver curso son públicos
+                                "/cursos", "/cursos/*"
                         ).permitAll()
 
                         // requiere login
                         .requestMatchers(
                                 "/perfil/**",
                                 "/progreso/**",
-                                "/cursos/*/leccion/**", // marcar/desmarcar
+                                "/cursos/*/leccion/**",
                                 "/cursos/*/inscribirme",
-                                "/notas/**"             // cuaderno de anotaciones
+                                "/notas/**"
                         ).authenticated()
 
                         .anyRequest().authenticated()
                 )
-
                 .formLogin(form -> form
                         .loginPage("/auth/login").permitAll()
                         .loginProcessingUrl("/auth/login")
                         .failureUrl("/auth/login?error")
                         .defaultSuccessUrl("/", true)
                 )
-
                 .logout(l -> l.logoutUrl("/logout").logoutSuccessUrl("/"))
-
-                // IMPORTANTE: dejamos CSRF habilitado (por defecto) y tus formularios ya envían _csrf
                 .csrf(Customizer.withDefaults());
 
         return http.build();
     }
+
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
