@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout :: head(${cursoTitulo} ?: 'Lecciones')"></head>
+<body>
+<div th:replace="layout :: navbar"></div>
+
+<main class="container py-4"
+      th:with="total=${#lists.size(lecciones)},
+               done=${#lists.size(completadas)},
+               pct=${ total == 0 ? 0 : ( (done * 100.0) / total ) }">
+
+    <!-- 🔔 Alerta de éxito -->
+    <div th:if="${ok}" id="alerta-msg"
+         class="alert alert-success alert-dismissible fade show text-center shadow-sm"
+         role="alert"
+         style="transition: opacity 0.5s ease;">
+        <strong th:text="${ok}">Acción completada correctamente.</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+
+    <!-- 🔔 Alerta de error -->
+    <div th:if="${error}" id="alerta-msg-error"
+         class="alert alert-danger alert-dismissible fade show text-center shadow-sm"
+         role="alert"
+         style="transition: opacity 0.5s ease;">
+        <strong th:text="${error}">Ha ocurrido un error.</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+    </div>
+
+    <!-- Encabezado -->
+    <div class="d-flex align-items-start justify-content-between mb-3 gap-3 flex-wrap">
+        <div>
+            <h1 class="m-0" th:text="${curso.titulo}">Lecciones</h1>
+
+            <!-- Subtítulo y chips -->
+            <div class="subtitle d-flex align-items-center gap-2 mt-1">
+                <span>Ruta de aprendizaje</span>
+                <span class="badge text-bg-dark" th:text="${curso.lenguaje}">JAVA</span>
+                <span class="badge text-bg-secondary" th:text="${curso.nivel}">BASICO</span>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
+            <!-- Contadores -->
+            <span class="chip chip-info">
+                Completadas: <strong th:text="${done}">0</strong>
+            </span>
+            <span class="chip chip-muted">
+                Pendientes: <strong th:text="${total - done}">0</strong>
+            </span>
+            <span class="chip chip-secondary">
+                Total: <strong th:text="${total}">0</strong>
+            </span>
+
+            <!-- Si NO está inscrito -->
+            <form sec:authorize="isAuthenticated()" th:if="${inscripcion == null}"
+                  th:action="@{|/cursos/${cursoId}/inscribirme|}" method="post" class="ms-2">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button class="btn btn-success">Inscribirme</button>
+            </form>
+
+            <!-- Si SÍ está inscrito -->
+            <form sec:authorize="isAuthenticated()" th:if="${inscripcion != null}"
+                  th:action="@{|/cursos/${cursoId}/abandonar|}" method="post" class="ms-2">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button class="btn btn-outline-danger">Abandonar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Barra de progreso -->
+    <div class="progress mb-4" style="height: 10px;">
+        <div class="progress-bar" role="progressbar"
+             th:style="'width:' + ${#numbers.formatDecimal(pct, 0, 'POINT', 0, 'POINT')} + '%;'"
+             th:aria-valuenow="${#numbers.formatDecimal(pct, 0, 'POINT', 0, 'POINT')}"
+             aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    <!-- Lista de lecciones -->
+    <div class="list-group list-lessons">
+        <div class="lesson-item list-group-item d-flex align-items-center justify-content-between"
+             th:each="l, iStat : ${lecciones}"
+             th:classappend="${completadas.contains(l.id)} ? 'is-done' : ''">
+
+            <div class="d-flex align-items-start gap-3">
+                <!-- Número -->
+                <div class="lesson-num" th:text="${iStat.index + 1}">1</div>
+
+                <!-- Contenido -->
+                <div>
+                    <h5 class="mb-1" th:text="${l.titulo}">Título de la lección</h5>
+                    <a class="small" th:href="${l.url}" target="_blank" rel="noopener">Abrir lección</a>
+                </div>
+            </div>
+
+            <!-- Acciones -->
+            <div>
+                <!-- Si ya está completada -->
+                <form th:if="${completadas.contains(l.id)}"
+                      th:action="@{|/cursos/${cursoId}/leccion/${l.id}/desmarcar|}" method="post" class="d-inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button class="btn btn-sm btn-outline-warning">Desmarcar</button>
+                </form>
+
+                <!-- Si NO está completada -->
+                <form th:if="${!completadas.contains(l.id)}"
+                      th:action="@{|/cursos/${cursoId}/leccion/${l.id}/completar|}" method="post" class="d-inline">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button class="btn btn-sm btn-outline-success">Marcar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div th:replace="layout :: footer"></div>
+
+<script th:replace="layout :: scripts"></script>
+<script th:replace="layout :: appjs"></script>
+
+<!-- 🔧 Script para autodesvanecer alertas -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const alerta = document.getElementById("alerta-msg");
+        const alertaError = document.getElementById("alerta-msg-error");
+
+        [alerta, alertaError].forEach(a => {
+            if (a) {
+                setTimeout(() => {
+                    a.style.opacity = '0';
+                    setTimeout(() => a.remove(), 500);
+                }, 4000); // ⏱️ 4 segundos visibles antes de desvanecer
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

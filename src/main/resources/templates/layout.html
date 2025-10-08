@@ -19,6 +19,12 @@
             <!-- Recursos siempre visible -->
             <a class="btn btn-outline-primary" th:href="@{/recursos}">Recursos</a>
 
+            <!-- NUEVO: Cursos (catálogo público) -->
+            <a class="btn btn-outline-primary" th:href="@{/cursos}">Cursos</a>
+
+            <!-- NUEVO: Notas (solo autenticado) -->
+            <a class="btn btn-outline-primary" th:href="@{/notas}" sec:authorize="isAuthenticated()">Notas</a>
+
             <!-- Link a Mi progreso si está autenticado -->
             <a class="btn btn-outline-success" th:href="@{/perfil/progreso}" sec:authorize="isAuthenticated()">
                 Mi progreso

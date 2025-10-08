@@ -3,18 +3,38 @@ spring:
     url: jdbc:mysql://localhost:3306/biblioteca_prog?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: bibliouser
     password: biblio_pass
+
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
     properties:
       hibernate.format_sql: true
+
   thymeleaf:
     cache: false
 
+  # === CONFIGURACIÓN DE CORREO (MAILTRAP) ===
+  mail:
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: b0ae9ae7391655      # 👈 reemplaza con tu usuario de Mailtrap
+    password: 2007fb81717b85      # 👈 reemplaza con tu contraseña de Mailtrap
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+
+# === CONFIGURACIÓN DEL SERVIDOR ===
 server:
   port: 8080
 
+# === LOGGING SQL ===
 logging:
   level:
     org.hibernate.SQL: debug
+
+# === VARIABLES PERSONALIZADAS PARA LA APP ===
+app:
+  base-url: http://localhost:8080
+  mail:
+    from: "Biblioteca <no-reply@biblioteca.local>"

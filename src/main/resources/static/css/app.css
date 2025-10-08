@@ -260,4 +260,76 @@ a:hover{ opacity: .9; }
 .dark .card .text-muted {
     color: #cbd5e1 !important; /* slate-300 */
 }
+/* -------------------------------------------------
+   Cursos: detalle de lecciones (estilos UI)
+   ------------------------------------------------- */
+
+.chip {
+    display: inline-flex; align-items: center; gap: .35rem;
+    padding: .25rem .6rem; border-radius: 999px; font-size: .9rem;
+    border: 1px solid var(--border); background: var(--card); color: var(--text);
+}
+.chip-info      { border-color: rgba(56,189,248,.35); background: rgba(56,189,248,.08); }
+.chip-muted     { border-color: var(--border); }
+.chip-secondary { border-color: rgba(148,163,184,.35); background: rgba(148,163,184,.08); }
+
+.list-lessons .lesson-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    margin-bottom: .6rem;
+    border-radius: .75rem;
+    box-shadow: var(--shadow);
+}
+.list-lessons .lesson-item.is-done {
+    background: rgba(34,197,94,.06);        /* verde muy suave */
+    border-color: rgba(34,197,94,.25);
+}
+.lesson-num {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center;
+    font-weight: 700;
+    background: rgba(99,102,241,.15);       /* indigo leve */
+    color: #c7d2fe;                          /* indigo-200 aprox */
+}
+.dark .lesson-num { color: #e0e7ff; }
+
+.list-lessons .list-group-item {
+    padding: 1rem 1rem;
+}
+
+.progress { background: rgba(148,163,184,.25); }
+.progress-bar { background: #22c55e; }      /* verde */
+/* Subtítulo bajo el título del curso */
+.subtitle{
+    color: var(--muted);
+    font-size: .95rem;
+}
+.dark .subtitle{
+    color: #cbd5e1; /* gris claro legible en oscuro */
+}
+
+/* Chips rápidos (opcional, por si no los tenías) */
+.chip{
+    display:inline-flex; align-items:center; gap:.35rem;
+    padding:.25rem .55rem; border-radius:999px; font-size:.85rem;
+    background:rgba(0,0,0,.04); border:1px solid var(--border);
+}
+.dark .chip{ background:rgba(255,255,255,.06); }
+
+/* Ajuste de la lista de lecciones (si no lo tenías ya) */
+.list-lessons .lesson-item{
+    border:1px solid var(--border);
+    background: var(--card);
+}
+.list-lessons .lesson-item.is-done{
+    opacity:.9; border-color: rgba(60,180,75,.35);
+    background: linear-gradient(0deg, rgba(60,180,75,.06), rgba(60,180,75,.06)), var(--card);
+}
+
+.list-lessons .lesson-num{
+    width:32px;height:32px;border-radius:50%;
+    display:grid;place-items:center;font-weight:700;
+    background: rgba(13,110,253,.12); color:#fff;
+}
+.dark .list-lessons .lesson-num{ background: rgba(13,110,253,.25); }
 

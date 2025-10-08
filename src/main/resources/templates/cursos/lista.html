@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout :: head('Cursos')"></head>
+<body>
+<div th:replace="layout :: navbar"></div>
+
+<main class="container py-4">
+
+    <h1 class="mb-4">Cursos disponibles</h1>
+
+    <!-- 🔔 Contenedor de TOASTS (flotantes, esquina superior derecha) -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">
+        <div th:if="${ok}" class="toast align-items-center text-bg-success border-0 show auto-dismiss shadow-lg" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" th:text="${ok}">Operación realizada correctamente.</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+
+        <div th:if="${info}" class="toast align-items-center text-bg-info border-0 show auto-dismiss shadow-lg" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" th:text="${info}">Información.</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+
+        <div th:if="${warn}" class="toast align-items-center text-bg-warning border-0 show auto-dismiss shadow-lg" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" th:text="${warn}">Advertencia.</div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+
+        <div th:if="${error}" class="toast align-items-center text-bg-danger border-0 show auto-dismiss shadow-lg" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" th:text="${error}">Ha ocurrido un error.</div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pestañas -->
+    <ul class="nav nav-pills mb-3" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link"
+               th:classappend="${tab}=='inscritos' ? 'active' : ''"
+               th:href="@{/cursos(tab='inscritos')}"
+               role="tab">
+                Inscritos
+                <span class="badge bg-secondary ms-1" th:text="${#lists.size(inscritos)}">0</span>
+            </a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link"
+               th:classappend="${tab}=='disponibles' ? 'active' : ''"
+               th:href="@{/cursos(tab='disponibles')}"
+               role="tab">
+                Disponibles
+                <span class="badge bg-secondary ms-1" th:text="${#lists.size(disponibles)}">0</span>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Contenido: INSCRITOS -->
+    <div th:if="${tab}=='inscritos'">
+        <div th:if="${#lists.isEmpty(inscritos)}" class="alert alert-info">
+            Aún no estás inscrito en ningún curso.
+        </div>
+        <div class="row g-3" th:if="${!#lists.isEmpty(inscritos)}">
+            <div class="col-md-6 col-lg-4" th:each="c : ${inscritos}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 th:text="${c.titulo}">Título</h5>
+                        <p class="card-text" th:text="${c.descripcion}">desc</p>
+                        <div class="d-flex gap-2">
+                            <span class="badge text-bg-dark" th:text="${c.lenguaje}">JAVA</span>
+                            <span class="badge text-bg-secondary" th:text="${c.nivel}">BASICO</span>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary" th:href="@{|/cursos/${c.id}|}">Ver</a>
+                        <span class="text-success small d-flex align-items-center">Inscrito ✓</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido: DISPONIBLES -->
+    <div th:if="${tab}=='disponibles'">
+        <div th:if="${#lists.isEmpty(disponibles)}" class="alert alert-info">
+            No hay cursos disponibles por ahora.
+        </div>
+        <div class="row g-3" th:if="${!#lists.isEmpty(disponibles)}">
+            <div class="col-md-6 col-lg-4" th:each="c : ${disponibles}">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 th:text="${c.titulo}">Título</h5>
+                        <p class="card-text" th:text="${c.descripcion}">desc</p>
+                        <div class="d-flex gap-2">
+                            <span class="badge text-bg-dark" th:text="${c.lenguaje}">JAVA</span>
+                            <span class="badge text-bg-secondary" th:text="${c.nivel}">BASICO</span>
+                        </div>
+                    </div>
+                    <div class="card-footer d-flex justify-content-between">
+                        <a class="btn btn-sm btn-primary" th:href="@{|/cursos/${c.id}|}">Ver</a>
+                        <form sec:authorize="isAuthenticated()" th:action="@{|/cursos/${c.id}/inscribirme|}" method="post">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <button class="btn btn-sm btn-outline-success">Inscribirme</button>
+                        </form>
+                        <a sec:authorize="!isAuthenticated()" class="btn btn-sm btn-outline-secondary" th:href="@{/auth/login}">
+                            Ingresar para inscribirme
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<div th:replace="layout :: footer"></div>
+<script th:replace="layout :: scripts"></script>
+<script th:replace="layout :: appjs"></script>
+</body>
+</html>
