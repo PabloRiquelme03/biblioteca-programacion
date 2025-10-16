@@ -22,5 +22,5 @@ public class Usuario {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "usuario_roles", joinColumns = @JoinColumn(name = "usuario_id"))
     @Column(name = "rol")
-    private Set<String> roles; // ej: ROLE_USER, ROLE_ADMIN
+    private Set<String> roles;
 }

@@ -12,5 +12,5 @@ public class Leccion {
 
     @Column(nullable=false) private String titulo;
     @Column(nullable=false) private String url; // destino de la lección (video/artículo)
-    @Column(nullable=false) private int orden;  // para ordenar el itinerario
+    @Column(nullable=false) private int orden;
 }

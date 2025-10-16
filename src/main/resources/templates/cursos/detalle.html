@@ -9,7 +9,7 @@
                done=${#lists.size(completadas)},
                pct=${ total == 0 ? 0 : ( (done * 100.0) / total ) }">
 
-    <!-- 🔔 Alerta de éxito -->
+    <!-- Alerta de éxito -->
     <div th:if="${ok}" id="alerta-msg"
          class="alert alert-success alert-dismissible fade show text-center shadow-sm"
          role="alert"
@@ -18,7 +18,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
     </div>
 
-    <!-- 🔔 Alerta de error -->
+    <!--Alerta de error -->
     <div th:if="${error}" id="alerta-msg-error"
          class="alert alert-danger alert-dismissible fade show text-center shadow-sm"
          role="alert"
@@ -118,7 +118,7 @@
 <script th:replace="layout :: scripts"></script>
 <script th:replace="layout :: appjs"></script>
 
-<!-- 🔧 Script para autodesvanecer alertas -->
+<!--autodesvanecer alertas -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const alerta = document.getElementById("alerta-msg");

@@ -28,7 +28,6 @@ public class AnotacionService {
     }
 
     public void eliminar(Principal p, Long id){
-        // (si quisieras, valida propiedad)
         repo.deleteById(id);
     }
 }

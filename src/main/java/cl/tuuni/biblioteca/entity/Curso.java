@@ -12,10 +12,10 @@ public class Curso {
     @Column(length=1000) private String descripcion;
 
     @Enumerated(EnumType.STRING) @Column(nullable=false)
-    private Nivel nivel;            // reutilizamos tu enum Nivel
+    private Nivel nivel;
 
     @Enumerated(EnumType.STRING) @Column(nullable=false)
-    private Lenguaje lenguaje;      // reutilizamos tu enum Lenguaje
+    private Lenguaje lenguaje;
 
     @Builder.Default
     private boolean activo = true;

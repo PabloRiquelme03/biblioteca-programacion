@@ -20,7 +20,7 @@ public class Anotacion {
     @ManyToOne(optional = false)
     private Usuario usuario;
 
-    // Enlaces opcionales (por si luego asocias notas a recursos o lecciones específicas)
+    // Enlaces opcionales
     private Long recursoId;
     private Long leccionId;
 

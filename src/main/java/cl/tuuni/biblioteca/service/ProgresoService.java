@@ -39,7 +39,7 @@ public class ProgresoService {
         }
     }
 
-    // 👇 nuevo: busca el progreso por email + recurso y lo borra si existe
+    // busca el progreso por email + recurso y lo borra si existe
     @Transactional
     public void desmarcar(Long recursoId, Principal principal) {
         progresoRepo.findByUsuarioEmailAndRecursoId(principal.getName(), recursoId)

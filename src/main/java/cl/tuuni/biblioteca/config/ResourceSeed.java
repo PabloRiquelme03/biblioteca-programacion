@@ -92,7 +92,6 @@ public class ResourceSeed {
                         TipoRecurso.GUIA, Lenguaje.JAVASCRIPT, Nivel.AVANZADO));
 
             // ====== HTML/CSS ======
-            // Si prefieres separarlo, agrega HTML_CSS en tu enum; aquí usamos JAVASCRIPT como categoría genérica.
             String[] titHtmlCssBas = {
                     "HTML5 Básico: Estructura",
                     "HTML5/CSS3: Selectores y caja",
@@ -125,7 +124,6 @@ public class ResourceSeed {
                 all.add(build(t, "HTML/CSS avanzado (web.dev)", "https://web.dev/",
                         TipoRecurso.ARTICULO, Lenguaje.JAVASCRIPT, Nivel.AVANZADO));
 
-            // ====== Inserta sólo los que faltan (por título) ======
             List<RecursoEducativo> nuevos = all.stream()
                     .filter(r -> !repo.existsByTitulo(r.getTitulo()))
                     .toList();

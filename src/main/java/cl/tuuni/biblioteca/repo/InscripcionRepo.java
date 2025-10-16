@@ -10,6 +10,6 @@ public interface InscripcionRepo extends JpaRepository<Inscripcion, Long> {
 
     Optional<Inscripcion> findByUsuarioEmailAndCursoId(String email, Long cursoId);
 
-    // NUEVO: todas las inscripciones de un usuario
+    //todas las inscripciones de un usuario
     List<Inscripcion> findByUsuarioEmail(String email);
 }

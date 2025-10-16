@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface LeccionRepo extends JpaRepository<Leccion, Long> {
 
-    // Opción 1: por entidad (ya la puedes tener)
+    // Opción 1: por entidad
     List<Leccion> findByCursoOrderByOrdenAsc(Curso curso);
 
-    // Opción 2: por id de curso (ESTE es el que pide tu CursoService)
+    // Opción 2: por id de curso
     List<Leccion> findByCursoIdOrderByOrdenAsc(Long cursoId);
 }

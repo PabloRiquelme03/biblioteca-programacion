@@ -14,6 +14,6 @@ public interface ProgresoRepo extends JpaRepository<Progreso, Long> {
 
     List<Progreso> findByUsuarioIdOrderByFechaDesc(Long usuarioId);
 
-    // 👇 finder directo por email del usuario (evita errores de join property names)
+    //  finder directo por email del usuario
     Optional<Progreso> findByUsuarioEmailAndRecursoId(String email, Long recursoId);
 }
