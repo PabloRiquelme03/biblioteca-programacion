@@ -323,6 +323,10 @@ h1, h2, h3, h4, h5, h6 {
 .card.bg-dark .text-muted {
     color: #9ca3af !important;
 }
+.white-space-pre-line {
+    white-space: pre-line;
+}
+
 
 .card.bg-dark:hover {
     box-shadow: 0 0 12px rgba(255,255,255,0.08);

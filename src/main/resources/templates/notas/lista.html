@@ -8,8 +8,9 @@
     <h1 class="mb-4">Cuaderno de anotaciones</h1>
 
     <!-- Formulario nueva nota -->
-    <form th:action="@{/notas}" method="post" class="mb-4 d-flex flex-column flex-md-row gap-2">
-        <div class="flex-grow-1">
+    <form th:action="@{/notas}" method="post" class="mb-4 d-flex flex-column gap-2">
+        <!-- Campo título -->
+        <div>
             <input type="text"
                    name="titulo"
                    class="form-control mb-1"
@@ -20,18 +21,19 @@
             <small class="text-muted contador" id="tituloCount">0 / 50</small>
         </div>
 
-        <div class="flex-grow-1">
-            <input type="text"
-                   name="contenido"
-                   class="form-control mb-1"
-                   placeholder="Escribe una nota... (máx. 300 caracteres)"
-                   maxlength="300"
-                   id="contenidoInput"
-                   required>
+        <!-- Campo descripción multilínea -->
+        <div>
+            <textarea name="contenido"
+                      class="form-control mb-1"
+                      placeholder="Escribe una nota... (máx. 300 caracteres)"
+                      maxlength="300"
+                      id="contenidoInput"
+                      rows="4"
+                      required></textarea>
             <small class="text-muted contador" id="contenidoCount">0 / 300</small>
         </div>
 
-        <button class="btn btn-primary align-self-start mt-md-0 mt-2">Guardar</button>
+        <button class="btn btn-primary align-self-start">Guardar</button>
     </form>
 
     <!-- Lista de notas -->
@@ -40,7 +42,7 @@
             <div class="card h-100 bg-dark text-light border-secondary shadow-sm">
                 <div class="card-body">
                     <h5 th:text="${n.titulo}" class="fw-semibold text-white">Título</h5>
-                    <p th:text="${n.contenido}" class="text-light small mb-2">Contenido</p>
+                    <p th:text="${n.contenido}" class="text-light small mb-2 white-space-pre-line">Contenido</p>
                     <p class="text-muted small mb-0"
                        th:text="${#temporals.format(n.actualizado, 'dd/MM/yyyy HH:mm')}">fecha</p>
                 </div>
@@ -59,7 +61,7 @@
 <script th:replace="layout :: scripts"></script>
 <script th:replace="layout :: appjs"></script>
 
-<!-- Contador dinámico de caracteres -->
+<!-- Contador dinámico -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const titulo = document.getElementById("tituloInput");
@@ -70,14 +72,12 @@
         if (titulo && contenido) {
             titulo.addEventListener("input", () => {
                 tituloCount.textContent = `${titulo.value.length} / 50`;
-                if (titulo.value.length > 45) tituloCount.classList.add("text-warning");
-                else tituloCount.classList.remove("text-warning");
+                tituloCount.classList.toggle("text-warning", titulo.value.length > 45);
             });
 
             contenido.addEventListener("input", () => {
                 contenidoCount.textContent = `${contenido.value.length} / 300`;
-                if (contenido.value.length > 270) contenidoCount.classList.add("text-warning");
-                else contenidoCount.classList.remove("text-warning");
+                contenidoCount.classList.toggle("text-warning", contenido.value.length > 270);
             });
         }
     });
