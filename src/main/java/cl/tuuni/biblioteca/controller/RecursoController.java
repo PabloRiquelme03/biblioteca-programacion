@@ -1,7 +1,7 @@
 package cl.tuuni.biblioteca.controller;
 
+import cl.tuuni.biblioteca.entity.Lenguaje;
 import cl.tuuni.biblioteca.entity.Nivel;
-import cl.tuuni.biblioteca.service.ProgresoService;
 import cl.tuuni.biblioteca.service.RecursoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,28 +9,47 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.security.Principal;
-
 @Controller
 @RequiredArgsConstructor
 public class RecursoController {
 
     private final RecursoService servicio;
-    private final ProgresoService progresoService;
 
     @GetMapping("/recursos")
-    public String listar(@RequestParam(name = "nivel", required = false) Nivel nivel,
-                         Model model,
-                         Principal principal) {
+    public String listar(
+            @RequestParam(name = "lenguaje", required = false) String lenguajeParam,
+            @RequestParam(name = "nivel", required = false) String nivelParam,
+            Model model) {
 
-        if (nivel == null) nivel = Nivel.BASICO;
+        // Parseo seguro de enums (evita 500 si viene algo raro)
+        Lenguaje lenguaje = null;
+        if (lenguajeParam != null && !lenguajeParam.isBlank()) {
+            try {
+                lenguaje = Lenguaje.valueOf(lenguajeParam.toUpperCase());
+            } catch (IllegalArgumentException ignored) {
+                lenguaje = null;
+            }
+        }
 
-        model.addAttribute("title", "Recursos - " + nivel);
-        model.addAttribute("nivel", nivel.name());
-        model.addAttribute("recursos", servicio.listarPorNivel(nivel));
+        Nivel nivel = null;
+        if (nivelParam != null && !nivelParam.isBlank()) {
+            try {
+                nivel = Nivel.valueOf(nivelParam.toUpperCase());
+            } catch (IllegalArgumentException ignored) {
+                nivel = null;
+            }
+        }
 
-        // IDs de recursos completados por el usuario autenticado
-        model.addAttribute("completados", progresoService.idsCompletados(principal));
+        model.addAttribute("title", "Recursos");
+
+        // Para los selects
+        model.addAttribute("lenguajes", Lenguaje.values());
+        model.addAttribute("niveles", Nivel.values());
+        model.addAttribute("selectedLenguaje", lenguaje);
+        model.addAttribute("selectedNivel", nivel);
+
+        // Lista filtrada
+        model.addAttribute("recursos", servicio.listarFiltrado(lenguaje, nivel));
 
         return "recursos/lista";
     }

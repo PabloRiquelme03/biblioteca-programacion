@@ -9,7 +9,7 @@
                done=${#lists.size(completadas)},
                pct=${ total == 0 ? 0 : ( (done * 100.0) / total ) }">
 
-    <!-- Alerta de éxito -->
+    <!-- ✅ Alerta de éxito -->
     <div th:if="${ok}" id="alerta-msg"
          class="alert alert-success alert-dismissible fade show text-center shadow-sm"
          role="alert"
@@ -18,7 +18,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
     </div>
 
-    <!--Alerta de error -->
+    <!-- ❌ Alerta de error -->
     <div th:if="${error}" id="alerta-msg-error"
          class="alert alert-danger alert-dismissible fade show text-center shadow-sm"
          role="alert"
@@ -27,21 +27,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
     </div>
 
-    <!-- Encabezado -->
+    <!-- 🏷️ Encabezado -->
     <div class="d-flex align-items-start justify-content-between mb-3 gap-3 flex-wrap">
         <div>
-            <h1 class="m-0" th:text="${curso.titulo}">Lecciones</h1>
-
-            <!-- Subtítulo y chips -->
+            <h1 class="m-0 text-light" th:text="${curso.titulo}">Lecciones</h1>
             <div class="subtitle d-flex align-items-center gap-2 mt-1">
-                <span>Ruta de aprendizaje</span>
+                <span class="text-secondary">Ruta de aprendizaje</span>
                 <span class="badge text-bg-dark" th:text="${curso.lenguaje}">JAVA</span>
                 <span class="badge text-bg-secondary" th:text="${curso.nivel}">BASICO</span>
             </div>
         </div>
 
         <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
-            <!-- Contadores -->
             <span class="chip chip-info">
                 Completadas: <strong th:text="${done}">0</strong>
             </span>
@@ -68,7 +65,7 @@
         </div>
     </div>
 
-    <!-- Barra de progreso -->
+    <!-- 📊 Barra de progreso -->
     <div class="progress mb-4" style="height: 10px;">
         <div class="progress-bar" role="progressbar"
              th:style="'width:' + ${#numbers.formatDecimal(pct, 0, 'POINT', 0, 'POINT')} + '%;'"
@@ -76,33 +73,44 @@
              aria-valuemin="0" aria-valuemax="100"></div>
     </div>
 
-    <!-- Lista de lecciones -->
+    <!-- 📘 Lista de lecciones -->
     <div class="list-group list-lessons">
-        <div class="lesson-item list-group-item d-flex align-items-center justify-content-between"
+        <div class="lesson-item list-group-item d-flex align-items-start justify-content-between flex-wrap gap-3"
              th:each="l, iStat : ${lecciones}"
              th:classappend="${completadas.contains(l.id)} ? 'is-done' : ''">
 
-            <div class="d-flex align-items-start gap-3">
-                <!-- Número -->
-                <div class="lesson-num" th:text="${iStat.index + 1}">1</div>
+            <div class="flex-grow-1">
+                <div class="d-flex align-items-start gap-3">
+                    <div class="lesson-num" th:text="${iStat.index + 1}">1</div>
+                    <div>
+                        <h5 class="mb-1 text-light" th:text="${l.titulo}">Título de la lección</h5>
 
-                <!-- Contenido -->
-                <div>
-                    <h5 class="mb-1" th:text="${l.titulo}">Título de la lección</h5>
-                    <a class="small" th:href="${l.url}" target="_blank" rel="noopener">Abrir lección</a>
+                        <!-- 🎥 Video embebido si hay URL de YouTube -->
+                        <div th:if="${embedUrls[l.id] != null}" class="ratio ratio-16x9 mb-2">
+                            <iframe th:src="${embedUrls[l.id]}"
+                                    title="YouTube video player"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                    referrerpolicy="strict-origin-when-cross-origin"
+                                    allowfullscreen></iframe>
+                        </div>
+
+                        <!-- 🔗 Enlace externo (si no es video) -->
+                        <a class="small text-info" th:href="${l.url}" target="_blank" rel="noopener">
+                            Abrir lección en pestaña nueva
+                        </a>
+                    </div>
                 </div>
             </div>
 
-            <!-- Acciones -->
-            <div>
-                <!-- Si ya está completada -->
+            <!-- ✅ Acciones -->
+            <div class="text-nowrap">
                 <form th:if="${completadas.contains(l.id)}"
                       th:action="@{|/cursos/${cursoId}/leccion/${l.id}/desmarcar|}" method="post" class="d-inline">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <button class="btn btn-sm btn-outline-warning">Desmarcar</button>
                 </form>
 
-                <!-- Si NO está completada -->
                 <form th:if="${!completadas.contains(l.id)}"
                       th:action="@{|/cursos/${cursoId}/leccion/${l.id}/completar|}" method="post" class="d-inline">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
@@ -118,18 +126,17 @@
 <script th:replace="layout :: scripts"></script>
 <script th:replace="layout :: appjs"></script>
 
-<!--autodesvanecer alertas -->
+<!-- ⏱️ Autodesvanecer alertas -->
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const alerta = document.getElementById("alerta-msg");
         const alertaError = document.getElementById("alerta-msg-error");
-
         [alerta, alertaError].forEach(a => {
             if (a) {
                 setTimeout(() => {
                     a.style.opacity = '0';
                     setTimeout(() => a.remove(), 500);
-                }, 4000); // ⏱️ 4 segundos visibles antes de desvanecer
+                }, 4000);
             }
         });
     });

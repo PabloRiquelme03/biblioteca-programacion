@@ -333,3 +333,458 @@ h1, h2, h3, h4, h5, h6 {
     transform: translateY(-2px);
     transition: all .2s ease-in-out;
 }
+/* Animación suave para el contador de resultados */
+.fade-in {
+    animation: fadeIn 0.35s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-2px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* =========================
+   Hero con video (ajustado y centrado)
+   ========================= */
+.hero-video {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(255,255,255,0.05);
+}
+
+.hero-video__bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    filter: saturate(1.05) contrast(1.05) brightness(.7);
+}
+
+.hero-video__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.65));
+    pointer-events: none;
+}
+
+.hero-video__content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: var(--text);
+    padding: 2rem;
+}
+/* =========================
+   Accordion (modo oscuro con sombra suave)
+   ========================= */
+.app-accordion {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+.app-accordion .accordion-item {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.app-accordion .accordion-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    border-color: rgba(99, 102, 241, 0.25);
+}
+
+.app-accordion .accordion-button {
+    background: var(--card);
+    color: var(--text);
+    font-weight: 500;
+    padding: 1rem 1.25rem;
+    transition: all 0.3s ease;
+    box-shadow: none !important;
+}
+
+.app-accordion .accordion-button:not(.collapsed) {
+    color: var(--text);
+    background: rgba(255, 255, 255, 0.04);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.app-accordion .accordion-button::after {
+    filter: invert(1) brightness(0.8);
+}
+
+.app-accordion .accordion-button:focus {
+    box-shadow: 0 0 0 0.15rem rgba(99, 102, 241, 0.3);
+}
+
+.app-accordion .accordion-body {
+    color: var(--muted);
+    background: var(--card);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1rem 1.5rem;
+}
+/* =========================
+   Sección Rutas por lenguaje
+   ========================= */
+.section-title {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.rutas-grid .ruta-card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem 1.25rem 1rem;
+    text-decoration: none;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    height: 100%;
+    position: relative;
+}
+
+.ruta-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 28px rgba(0,0,0,.45);
+    border-color: rgba(99,102,241,.25); /* leve acento */
+}
+
+.ruta-card__badge {
+    display: inline-block;
+    font-size: .7rem;
+    letter-spacing: .08em;
+    padding: .25rem .5rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,.06);
+    border: 1px solid var(--border);
+    margin-bottom: .6rem;
+    color: var(--text);
+}
+
+.ruta-card__title {
+    font-size: 1.1rem;
+    margin: 0 0 .35rem;
+}
+
+.ruta-card__desc {
+    color: var(--muted);
+    margin: 0 0 1.25rem;
+    min-height: 48px; /* para alinear alturas */
+}
+
+.ruta-card__cta {
+    font-weight: 600;
+    color: var(--text);
+    opacity: .85;
+    transition: opacity .2s ease;
+}
+
+.ruta-card:hover .ruta-card__cta {
+    opacity: 1;
+}
+/* =========================
+   CTA centrado según sesión
+   ========================= */
+#cta-final {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.cta-centered {
+    background: linear-gradient(145deg, rgba(99,102,241,0.08), rgba(29,78,216,0.06));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2rem 3rem;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.45);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 700px;
+}
+
+.cta-centered:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+
+.cta-centered h3 {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.cta-centered p {
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.cta-centered .btn-lg {
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    border-radius: 10px;
+}
+/* =========================
+   CTA centrado con fade-in
+   ========================= */
+#cta-final {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5rem 0;
+}
+
+.cta-centered {
+    background: linear-gradient(145deg, rgba(99,102,241,0.08), rgba(29,78,216,0.06));
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 2.5rem 3rem;
+    box-shadow: 0 6px 25px rgba(0,0,0,0.45);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 720px;
+    opacity: 0; /* animación inicial */
+    transform: translateY(30px);
+}
+
+.cta-centered.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: all 0.8s ease-out;
+}
+
+.cta-centered:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+}
+
+.cta-centered h3 {
+    font-weight: 700;
+    color: var(--text);
+}
+
+.cta-centered p {
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.cta-centered .btn-lg {
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    border-radius: 10px;
+}
+
+/* =========================
+   Fade-in reusable class
+   ========================= */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1s ease;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* ==== Rutas por lenguaje (grid 3 columnas) ==== */
+.rutas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.ruta-card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+    text-decoration: none;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+    position: relative;
+}
+
+.ruta-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(99,102,241,.45); /* “indigo” suave */
+    box-shadow: 0 10px 30px rgba(99,102,241,.12), var(--shadow);
+}
+
+/* badge arriba */
+.ruta-card__badge {
+    display: inline-block;
+    padding: .25rem .65rem;
+    border-radius: 999px;
+    font-size: .8rem;
+    font-weight: 700;
+    color: #a5b4fc;
+    border: 1px solid rgba(99,102,241,.35);
+    background: rgba(99,102,241,.12);
+    margin-bottom: .6rem;
+}
+
+/* títulos / descripción */
+.ruta-card__title {
+    color: var(--text);
+    font-weight: 800;
+    font-size: 1.35rem;
+    margin: 0 0 .25rem 0;
+}
+.ruta-card__desc {
+    color: var(--muted);
+    margin: 0 0 .9rem 0;
+}
+
+/* CTA: “Explorar →” con glow/scale al hover */
+.ruta-card__cta {
+    display: inline-flex;
+    gap: .4rem;
+    align-items: center;
+    font-weight: 700;
+    color: #60a5fa;
+    text-decoration: none;
+    transition: transform .15s ease, text-shadow .15s ease, color .15s ease;
+}
+.ruta-card__cta:hover {
+    transform: translateY(-1px) scale(1.02);
+    color: #93c5fd;
+    text-shadow: 0 0 10px rgba(96,165,250,.35);
+}
+
+/* responsive */
+@media (max-width: 992px) {
+    .rutas-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+@media (max-width: 640px) {
+    .rutas-grid { grid-template-columns: 1fr; }
+}
+/* =========================
+   Animaciones on-scroll
+   ========================= */
+
+/* 1) Elementos que suben y hacen fade */
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .8s ease, transform .8s ease;
+}
+.fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 2) Contenedores con “stagger”: aplica a sus hijos directos */
+.fade-stagger > * {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity .7s ease, transform .7s ease;
+}
+.fade-stagger.is-visible > * {
+    opacity: 1;
+    transform: translateY(0);
+}
+.fade-stagger.is-visible > *:nth-child(1) { transition-delay: .05s; }
+.fade-stagger.is-visible > *:nth-child(2) { transition-delay: .15s; }
+.fade-stagger.is-visible > *:nth-child(3) { transition-delay: .25s; }
+.fade-stagger.is-visible > *:nth-child(4) { transition-delay: .35s; }
+
+/* 3) Sección genérica con fade (ya usas .fade-in-section en el CTA) */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity .9s ease, transform .9s ease;
+}
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* (Opcional) Pequeño foco al hacer focus via teclado en las tarjetas */
+.ruta-card:focus-visible {
+    outline: 2px solid rgba(99,102,241,.6);
+    outline-offset: 3px;
+}
+/* =========================
+   Animaciones suaves en botones
+   ========================= */
+
+/* Base general */
+.btn {
+    transition:
+            transform 0.15s ease,
+            box-shadow 0.2s ease,
+            background-color 0.2s ease,
+            color 0.2s ease,
+            border-color 0.2s ease;
+}
+
+/* Efecto al pasar el mouse (hover) */
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99, 102, 241, 0.25);
+}
+
+/* Efecto al hacer clic (active) */
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: 0 4px 10px rgba(99, 102, 241, 0.2);
+}
+
+/* Botón principal */
+.btn-primary {
+    background: linear-gradient(135deg, #4f46e5, #3b82f6);
+    border: none;
+    color: #fff;
+    box-shadow: 0 3px 12px rgba(79, 70, 229, 0.25);
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #6366f1, #2563eb);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.35);
+}
+.btn-primary:active {
+    background: linear-gradient(135deg, #4f46e5, #1d4ed8);
+}
+
+/* Botón claro (outline) */
+.btn-outline-light {
+    color: #f3f4f6;
+    border: 1px solid #9ca3af;
+    transition: all 0.25s ease;
+}
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #d1d5db;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(255, 255, 255, 0.15);
+}
+.btn-outline-light:active {
+    transform: translateY(1px) scale(0.98);
+}
+
+/* Ajuste para botones grandes (como los del CTA) */
+.btn-lg {
+    transition: all 0.25s ease;
+    border-radius: 12px;
+}

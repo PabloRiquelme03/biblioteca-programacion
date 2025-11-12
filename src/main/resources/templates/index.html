@@ -1,40 +1,240 @@
 <!doctype html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="layout :: head('Inicio')"></head>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout :: head('Programy - Biblioteca de Programación')"></head>
 <body>
+
+<!-- Navbar -->
 <div th:replace="layout :: navbar"></div>
 
-<main class="container py-4">
+<main>
 
-    <!-- Hero con video en loop -->
-    <section class="hero-video mb-4 rounded-4 overflow-hidden shadow-lg position-relative">
-
-        <!-- Video -->
-        <video class="hero-video-el"
-               autoplay
-               muted
-               loop
-               playsinline
-               preload="metadata"
-               poster="/imgs/hero-poster.jpg">
-            <!-- Fuente con y sin Thymeleaf (para evitar problemas de resolución de rutas) -->
-            <source th:src="@{/videos/Main-video.mp4}" src="/videos/Main-video.mp4" type="video/mp4"/>
-            Tu navegador no soporta el video HTML5.
+    <!-- =======================
+         HERO con video en loop
+         ======================= -->
+    <section class="hero-video position-relative">
+        <!-- Video en loop -->
+        <video class="hero-video__bg" autoplay muted playsinline loop>
+            <source th:src="@{/videos/Main-video.mp4}" type="video/mp4">
+            Tu navegador no soporta videos HTML5.
         </video>
 
-        <!-- Texto superpuesto -->
-        <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center align-items-start text-white px-4 px-md-5"
-             style="background: rgba(0,0,0,0.25);">
-            <h1 class="display-6 fw-bold mb-2">Aprende a programar por niveles</h1>
-            <p class="lead mb-3">Recursos en español, organizados por lenguaje y dificultad.</p>
-            <a class="btn btn-primary btn-lg" th:href="@{/recursos}">Explorar recursos</a>
+        <!-- Capa oscura -->
+        <div class="hero-video__overlay"></div>
+
+        <!-- Contenido (con animación) -->
+        <div class="container hero-video__content text-center fade-in-up">
+            <h1 class="display-5 fw-bold mb-2">Programy</h1>
+            <p class="lead text-secondary mb-3">
+                Aprende a programar por niveles, con recursos curados y rutas de aprendizaje.
+            </p>
         </div>
     </section>
 
+    <!-- =======================
+         Acerca de Programy
+         ======================= -->
+    <section class="container py-5" id="about">
+        <h2 class="mb-3 text-light fade-in-up">Acerca de Programy</h2>
+        <p class="text-secondary mb-3 fade-in-up" style="max-width: 880px">
+            Programy nació como un <strong>proyecto de título</strong> con el objetivo de facilitar el
+            aprendizaje de programación a estudiantes y autodidactas. Centralizamos recursos de calidad,
+            organizados por <em>lenguaje</em> y <em>nivel</em>, y añadimos funciones de progreso, notas y
+            cursos con lecciones prácticas.
+        </p>
+
+        <!-- Stagger en columnas -->
+        <div class="row g-4 align-items-start fade-stagger">
+            <div class="col-lg-6 fade-in-up">
+                <ul class="list-unstyled text-secondary">
+                    <li class="mb-2">• Contenido curado en <strong>Java, JavaScript y Python</strong>.</li>
+                    <li class="mb-2">• Rutas de aprendizaje por <strong>nivel</strong> (Básico, Intermedio, Avanzado).</li>
+                    <li class="mb-2">• Marca tus <strong>recursos completados</strong> y lleva seguimiento.</li>
+                    <li class="mb-2">• Crea <strong>anotaciones</strong> personales y vuelve a ellas cuando quieras.</li>
+                </ul>
+            </div>
+
+            <div class="col-lg-6 fade-in-up">
+                <div class="p-4 rounded-3 shadow-sm" style="background: var(--card); border:1px solid var(--border);">
+                    <h5 class="mb-2 text-light">Nuestra misión</h5>
+                    <p class="text-secondary mb-3">
+                        Hacer el aprendizaje de programación más claro, práctico y accesible, combinando teoría corta
+                        con ejercicios y videos explicativos.
+                    </p>
+                    <h5 class="mb-2 text-light">Visión</h5>
+                    <p class="text-secondary mb-0">
+                        Convertirnos en la puerta de entrada favorita para quienes inician en tecnología, potenciando
+                        su autonomía y motivación.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- =======================
+     Rutas por lenguaje
+     ======================= -->
+    <section class="container py-5" id="rutas">
+        <h2 class="section-title mb-3 fade-in-up">Rutas por lenguaje</h2>
+        <p class="text-muted mb-4 fade-in-up">Elige tu lenguaje y recorre una ruta guiada según tu nivel.</p>
+
+        <div class="rutas-grid fade-stagger">
+            <!-- JAVA -->
+            <a class="ruta-card fade-in-up" th:href="@{/recursos(lenguaje='JAVA')}">
+                <div class="ruta-card__badge">JAVA</div>
+                <h3 class="ruta-card__title">Ruta Java</h3>
+                <p class="ruta-card__desc">Sintaxis, OOP, colecciones, streams y concurrencia.</p>
+                <span class="ruta-card__cta">Explorar →</span>
+            </a>
+
+            <!-- JavaScript -->
+            <a class="ruta-card fade-in-up" th:href="@{/recursos(lenguaje='JAVASCRIPT')}">
+                <div class="ruta-card__badge">JAVASCRIPT</div>
+                <h3 class="ruta-card__title">Ruta JavaScript</h3>
+                <p class="ruta-card__desc">Fundamentos, DOM, fetch, módulos y asincronía.</p>
+                <span class="ruta-card__cta">Explorar →</span>
+            </a>
+
+            <!-- Python -->
+            <a class="ruta-card fade-in-up" th:href="@{/recursos(lenguaje='PYTHON')}">
+                <div class="ruta-card__badge">PYTHON</div>
+                <h3 class="ruta-card__title">Ruta Python</h3>
+                <p class="ruta-card__desc">Bases, estructuras, librerías y buenas prácticas.</p>
+                <span class="ruta-card__cta">Explorar →</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- =======================
+         Preguntas Frecuentes
+         ======================= -->
+    <section class="container pb-5" id="faq">
+        <h2 class="mb-3 text-light fade-in-up">Preguntas frecuentes</h2>
+        <p class="text-secondary mb-4 fade-in-up">Resuelve tus dudas rápidas sobre cómo funciona Programy.</p>
+
+        <div class="accordion accordion-flush app-accordion fade-in-up" id="faqProgramy">
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q1">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a1" aria-expanded="false" aria-controls="a1">
+                        ¿Qué es exactamente Programy?
+                    </button>
+                </h2>
+                <div id="a1" class="accordion-collapse collapse" aria-labelledby="q1" data-bs-parent="#faqProgramy">
+                    <div class="accordion-body">
+                        Programy es una <strong>biblioteca de aprendizaje</strong> con recursos, cursos y rutas por nivel,
+                        pensada para guiarte paso a paso en tu camino como programador/a.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q2">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a2" aria-expanded="false" aria-controls="a2">
+                        ¿Cómo me ayudará Programy a aprender a programar?
+                    </button>
+                </h2>
+                <div id="a2" class="accordion-collapse collapse" aria-labelledby="q2" data-bs-parent="#faqProgramy">
+                    <div class="accordion-body">
+                        Con <strong>recorridos guiados</strong> por lenguaje y nivel, métricas de progreso,
+                        material curado y lecciones con videos. Tú avanzas a tu ritmo, nosotros te ordenamos el camino.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q3">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a3" aria-expanded="false" aria-controls="a3">
+                        ¿Es Programy realmente gratuito?
+                    </button>
+                </h2>
+                <div id="a3" class="accordion-collapse collapse" aria-labelledby="q3" data-bs-parent="#faqProgramy">
+                    <div class="accordion-body">
+                        Sí. El acceso a los recursos y cursos base es <strong>gratuito</strong>. Algunos contenidos
+                        externos (por ejemplo, cursos de terceros) pueden tener sus propias condiciones.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q4">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a4" aria-expanded="false" aria-controls="a4">
+                        ¿Qué habilidades voy a aprender?
+                    </button>
+                </h2>
+                <div id="a4" class="accordion-collapse collapse" aria-labelledby="q4" data-bs-parent="#faqProgramy">
+                    <div class="accordion-body">
+                        Fundamentos y prácticas en <strong>Java, JavaScript y Python</strong>; además de HTML/CSS,
+                        lógica, buenas prácticas, y resolución de problemas.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q5">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a5" aria-expanded="false" aria-controls="a5">
+                        ¿Cuánto tiempo se tarda en aprender todo?
+                    </button>
+                </h2>
+                <div id="a5" class="accordion-collapse collapse" aria-labelledby="q5" data-bs-parent="#faqProgramy">
+                    <div class="accordion-body">
+                        Depende de tu base y constancia. Con 5–7 horas semanales, en unas 8–12 semanas puedes completar
+                        una ruta básica sólida.
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="q6">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#a6" aria-expanded="false" aria-controls="a6">
+                        ¿Cómo empiezo?
+                    </button>
+                </h2>
+                <div id="a6" class="accordion-collapse collapse" aria-labelledby="q6" data-bs-parent="#faqProgramy">
+                    <div class="accordion-body">
+                        Crea tu cuenta, elige un <strong>lenguaje</strong> (recomendamos JavaScript para comenzar)
+                        y sigue la ruta <strong>Básico</strong>. Marca como completado y toma notas para reforzar.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
 </main>
 
+<!-- CTA final -->
+<section class="container py-5" id="cta-final">
+    <div class="cta-centered text-center fade-in-section">
+        <h3 class="mb-2">¿Listo para empezar?</h3>
+        <p class="text-muted mb-4">
+            Únete a Programy y comienza tu ruta de aprendizaje personalizada.
+        </p>
+
+        <!-- Si el usuario NO está logueado -->
+        <div sec:authorize="!isAuthenticated()">
+            <a class="btn btn-primary btn-lg me-2" th:href="@{/auth/login}">Ingresar</a>
+            <a class="btn btn-outline-light btn-lg" th:href="@{/auth/registro}">Registrarse</a>
+        </div>
+
+        <!-- Si el usuario SÍ está logueado -->
+        <div sec:authorize="isAuthenticated()">
+            <a class="btn btn-primary btn-lg me-2" th:href="@{/recursos}">Explorar recursos</a>
+            <a class="btn btn-outline-light btn-lg" th:href="@{/cursos}">Ver cursos</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
 <div th:replace="layout :: footer"></div>
 <script th:replace="layout :: scripts"></script>
 <script th:replace="layout :: appjs"></script>
+
 </body>
 </html>
