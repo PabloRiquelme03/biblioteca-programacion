@@ -1,146 +1,176 @@
 <!doctype html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
-<head th:replace="layout :: head(${cursoTitulo} ?: 'Lecciones')"></head>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{layout :: head(${cursoTitulo})}"></head>
+
 <body>
-<div th:replace="layout :: navbar"></div>
 
-<main class="container py-4"
-      th:with="total=${#lists.size(lecciones)},
-               done=${#lists.size(completadas)},
-               pct=${ total == 0 ? 0 : ( (done * 100.0) / total ) }">
+<div th:replace="~{layout :: navbar}"></div>
 
-    <!-- ✅ Alerta de éxito -->
-    <div th:if="${ok}" id="alerta-msg"
-         class="alert alert-success alert-dismissible fade show text-center shadow-sm"
-         role="alert"
-         style="transition: opacity 0.5s ease;">
-        <strong th:text="${ok}">Acción completada correctamente.</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-    </div>
+<main class="container py-4">
 
-    <!-- ❌ Alerta de error -->
-    <div th:if="${error}" id="alerta-msg-error"
-         class="alert alert-danger alert-dismissible fade show text-center shadow-sm"
-         role="alert"
-         style="transition: opacity 0.5s ease;">
-        <strong th:text="${error}">Ha ocurrido un error.</strong>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
-    </div>
-
-    <!-- 🏷️ Encabezado -->
-    <div class="d-flex align-items-start justify-content-between mb-3 gap-3 flex-wrap">
+    <!-- ========================
+         HEADER DEL CURSO
+    ========================= -->
+    <div class="d-flex justify-content-between align-items-start mb-4">
         <div>
-            <h1 class="m-0 text-light" th:text="${curso.titulo}">Lecciones</h1>
-            <div class="subtitle d-flex align-items-center gap-2 mt-1">
-                <span class="text-secondary">Ruta de aprendizaje</span>
-                <span class="badge text-bg-dark" th:text="${curso.lenguaje}">JAVA</span>
-                <span class="badge text-bg-secondary" th:text="${curso.nivel}">BASICO</span>
-            </div>
+            <a th:href="@{/cursos}"
+               class="text-decoration-none text-muted small">&laquo; Volver a cursos</a>
+
+            <h1 class="mt-1 mb-2" th:text="${cursoTitulo}">Nombre del curso</h1>
+
+            <p class="mb-2 small text-muted">
+                Ruta de aprendizaje:
+                <span class="badge bg-primary me-1" th:text="${curso.lenguaje}">JAVA</span>
+                <span class="badge bg-secondary" th:text="${curso.nivel}">INTERMEDIO</span>
+            </p>
         </div>
 
-        <div class="d-flex align-items-center gap-2 flex-wrap justify-content-end">
-            <span class="chip chip-info">
-                Completadas: <strong th:text="${done}">0</strong>
-            </span>
-            <span class="chip chip-muted">
-                Pendientes: <strong th:text="${total - done}">0</strong>
-            </span>
-            <span class="chip chip-secondary">
-                Total: <strong th:text="${total}">0</strong>
-            </span>
-
-            <!-- Si NO está inscrito -->
-            <form sec:authorize="isAuthenticated()" th:if="${inscripcion == null}"
-                  th:action="@{|/cursos/${cursoId}/inscribirme|}" method="post" class="ms-2">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <button class="btn btn-success">Inscribirme</button>
-            </form>
-
-            <!-- Si SÍ está inscrito -->
-            <form sec:authorize="isAuthenticated()" th:if="${inscripcion != null}"
-                  th:action="@{|/cursos/${cursoId}/abandonar|}" method="post" class="ms-2">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <button class="btn btn-outline-danger">Abandonar</button>
-            </form>
+        <div class="text-end small card bg-dark border-secondary shadow-sm px-3 py-2 rounded-4">
+            <p class="mb-1">
+                <strong>Completadas:</strong>
+                <span th:text="${completadas.size()}">0</span>
+            </p>
+            <p class="mb-1">
+                <strong>Pendientes:</strong>
+                <span th:text="${pendientes}">0</span>
+            </p>
+            <p class="mb-0">
+                <strong>Total:</strong>
+                <span th:text="${lecciones.size()}">0</span>
+            </p>
         </div>
     </div>
 
-    <!-- 📊 Barra de progreso -->
-    <div class="progress mb-4" style="height: 10px;">
-        <div class="progress-bar" role="progressbar"
-             th:style="'width:' + ${#numbers.formatDecimal(pct, 0, 'POINT', 0, 'POINT')} + '%;'"
-             th:aria-valuenow="${#numbers.formatDecimal(pct, 0, 'POINT', 0, 'POINT')}"
-             aria-valuemin="0" aria-valuemax="100"></div>
+    <!-- ========================
+         CONTENIDO POR SEMANAS
+    ========================= -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="h5 mb-0">Contenido del curso</h2>
+        <span class="badge rounded-pill bg-dark border border-secondary small px-3 py-2">
+            Estructura sugerida por semanas
+        </span>
     </div>
 
-    <!-- 📘 Lista de lecciones -->
-    <div class="list-group list-lessons">
-        <div class="lesson-item list-group-item d-flex align-items-start justify-content-between flex-wrap gap-3"
-             th:each="l, iStat : ${lecciones}"
-             th:classappend="${completadas.contains(l.id)} ? 'is-done' : ''">
+    <p class="text-muted small mb-3">
+        Las semanas que verás a continuación son solo una sugerencia para organizar tu estudio.
+        No es obligatorio seguirlas al pie de la letra: adapta el ritmo a tu tiempo disponible.
+    </p>
 
-            <div class="flex-grow-1">
-                <div class="d-flex align-items-start gap-3">
-                    <div class="lesson-num" th:text="${iStat.index + 1}">1</div>
-                    <div>
-                        <h5 class="mb-1 text-light" th:text="${l.titulo}">Título de la lección</h5>
+    <!-- Acordeón de semanas (con tarjeta completa redondeada) -->
+    <div class="accordion curso-accordion" id="accordionSemanas"
+         th:if="${semanasGrupos != null and !#lists.isEmpty(semanasGrupos)}">
 
-                        <!-- 🎥 Video embebido si hay URL de YouTube -->
-                        <div th:if="${embedUrls[l.id] != null}" class="ratio ratio-16x9 mb-2">
-                            <iframe th:src="${embedUrls[l.id]}"
-                                    title="YouTube video player"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    referrerpolicy="strict-origin-when-cross-origin"
-                                    allowfullscreen></iframe>
-                        </div>
+        <div class="accordion-item mb-3"
+             th:each="grupo, stat : ${semanasGrupos}">
 
-                        <!-- 🔗 Enlace externo (si no es video) -->
-                        <a class="small text-info" th:href="${l.url}" target="_blank" rel="noopener">
-                            Abrir lección en pestaña nueva
-                        </a>
+            <h2 class="accordion-header" th:attr="id=${'heading' + stat.index}">
+                <button class="accordion-button collapsed fw-semibold"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        th:attr="data-bs-target=${'#semana' + stat.index}"
+                        aria-expanded="false"
+                        th:attrappend=" aria-controls=${'semana' + stat.index}">
+                    <span th:text="'Semana ' + ${grupo.numero()}">Semana 1</span>
+                    <span class="badge bg-secondary ms-2"
+                          th:text="${#lists.size(grupo.lecciones())} + ' lección(es)'">
+                        0 lección(es)
+                    </span>
+                </button>
+            </h2>
+
+            <div class="accordion-collapse collapse"
+                 th:classappend="${stat.index == 0} ? ' show'"
+                 th:attr="id=${'semana' + stat.index}"
+                 th:attrappend=" aria-labelledby=${'heading' + stat.index}"
+                 data-bs-parent="#accordionSemanas">
+
+                <div class="accordion-body">
+
+                    <div th:if="${#lists.isEmpty(grupo.lecciones())}"
+                         class="text-muted small">
+                        Aún no hay lecciones asignadas a esta semana.
                     </div>
+
+                    <div class="vstack gap-3"
+                         th:if="${!#lists.isEmpty(grupo.lecciones())}">
+                        <div th:each="lec : ${grupo.lecciones()}"
+                             class="d-flex align-items-start p-3 rounded-3 bg-body bg-opacity-10 border border-secondary">
+
+                            <!-- NÚMERO -->
+                            <div class="me-3">
+                                <span class="badge rounded-pill bg-primary"
+                                      th:text="${lec.orden}">1</span>
+                            </div>
+
+                            <!-- CONTENIDO DE LA LECCIÓN -->
+                            <div class="flex-grow-1">
+                                <h5 class="mb-1" th:text="${lec.titulo}">
+                                    Título de la lección
+                                </h5>
+
+                                <p class="mb-2 small">
+                                    <a th:href="${lec.url}" target="_blank"
+                                       class="link-info text-decoration-none">
+                                        Abrir lección en pestaña nueva
+                                    </a>
+                                </p>
+
+                                <div th:if="${embedUrls[lec.id]}">
+                                    <div class="ratio ratio-16x9">
+                                        <iframe th:src="${embedUrls[lec.id]}"
+                                                title="Video de la lección"
+                                                loading="lazy"
+                                                allowfullscreen
+                                                class="rounded border border-dark-subtle">
+                                        </iframe>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- BOTÓN MARCAR / DESMARCAR -->
+                            <div class="ms-3">
+                                <th:block th:if="${#lists.contains(completadas, lec.id)}">
+                                    <form th:action="@{'/cursos/' + ${cursoId} + '/leccion/' + ${lec.id} + '/desmarcar'}"
+                                          method="post">
+                                        <input type="hidden"
+                                               th:name="${_csrf.parameterName}"
+                                               th:value="${_csrf.token}"/>
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-warning">
+                                            Desmarcar
+                                        </button>
+                                    </form>
+                                </th:block>
+
+                                <th:block th:unless="${#lists.contains(completadas, lec.id)}">
+                                    <form th:action="@{'/cursos/' + ${cursoId} + '/leccion/' + ${lec.id} + '/completar'}"
+                                          method="post">
+                                        <input type="hidden"
+                                               th:name="${_csrf.parameterName}"
+                                               th:value="${_csrf.token}"/>
+                                        <button type="submit"
+                                                class="btn btn-sm btn-outline-success">
+                                            Marcar
+                                        </button>
+                                    </form>
+                                </th:block>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
             </div>
-
-            <!-- ✅ Acciones -->
-            <div class="text-nowrap">
-                <form th:if="${completadas.contains(l.id)}"
-                      th:action="@{|/cursos/${cursoId}/leccion/${l.id}/desmarcar|}" method="post" class="d-inline">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <button class="btn btn-sm btn-outline-warning">Desmarcar</button>
-                </form>
-
-                <form th:if="${!completadas.contains(l.id)}"
-                      th:action="@{|/cursos/${cursoId}/leccion/${l.id}/completar|}" method="post" class="d-inline">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <button class="btn btn-sm btn-outline-success">Marcar</button>
-                </form>
-            </div>
         </div>
     </div>
+
 </main>
 
-<div th:replace="layout :: footer"></div>
-
-<script th:replace="layout :: scripts"></script>
-<script th:replace="layout :: appjs"></script>
-
-<!-- ⏱️ Autodesvanecer alertas -->
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const alerta = document.getElementById("alerta-msg");
-        const alertaError = document.getElementById("alerta-msg-error");
-        [alerta, alertaError].forEach(a => {
-            if (a) {
-                setTimeout(() => {
-                    a.style.opacity = '0';
-                    setTimeout(() => a.remove(), 500);
-                }, 4000);
-            }
-        });
-    });
-</script>
-
+<div th:replace="~{layout :: footer}"></div>
+<script th:replace="~{layout :: scripts}"></script>
+<script th:replace="~{layout :: appjs}"></script>
 </body>
 </html>

@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+
+<head th:replace="~{layout :: head(${curso.titulo})}"></head>
+
+<body class="bg-dark text-light">
+<div th:replace="~{layout :: navbar}"></div>
+
+<main class="container py-4 curso-detalle">
+
+    <!-- ========================
+         HEADER DEL CURSO
+    ========================= -->
+    <section class="mb-4">
+        <p class="text-uppercase text-secondary mb-1">CURSO</p>
+
+        <h1 class="h2 mb-2" th:text="${curso.titulo}">Título del curso</h1>
+
+        <div class="d-flex flex-wrap align-items-center gap-2 mb-3">
+            <span class="badge rounded-pill bg-primary"
+                  th:text="${nivelNombre} ?: 'BÁSICO'">
+                BÁSICO
+            </span>
+            <span class="badge rounded-pill bg-outline-light"
+                  th:text="${lenguajeNombre} ?: 'Java'">
+                Java
+            </span>
+            <span class="badge rounded-pill bg-outline-light">
+                Curso guiado por semanas
+            </span>
+        </div>
+
+        <p class="text-muted mb-2" th:text="${publicoObjetivo}">
+            Público objetivo del curso...
+        </p>
+
+        <p class="small mb-0">
+            <strong>
+                Duración recomendada: entre 8 y 12 horas totales
+                (aprox. 2–3 horas por semana).
+            </strong><br>
+            <span class="text-muted" th:text="${disclaimerTiempo}">
+                Texto de aclaración sobre el tiempo recomendado...
+            </span>
+        </p>
+    </section>
+
+    <!-- ========================
+         LO QUE APRENDERÁS
+    ========================= -->
+    <section class="mb-4">
+        <h2 class="h4 mb-3">Lo que aprenderás</h2>
+        <ul class="list-unstyled learning-list">
+            <li class="d-flex align-items-start mb-2"
+                th:each="item : ${loQueAprenderas}">
+                <i class="bi bi-check-circle me-2 text-success"></i>
+                <span th:text="${item}">Objetivo de aprendizaje...</span>
+            </li>
+        </ul>
+    </section>
+
+    <!-- ========================
+         CONTENIDO DEL CURSO
+    ========================= -->
+    <section class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Contenido del curso</h2>
+            <button type="button" class="btn btn-sm btn-outline-light" disabled>
+                Estructura sugerida por semanas
+            </button>
+        </div>
+
+        <div class="row g-3">
+            <div class="col-md-6"
+                 th:each="sem, idx : ${semanas}">
+                <div class="card bg-dark-2 border shadow-sm h-100">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <div>
+                                <span class="badge bg-primary rounded-pill me-2"
+                                      th:text="|Semana ${idx.index + 1}|">
+                                    Semana 1
+                                </span>
+                                <!-- QUITAMOS el segundo "Semana 1" para que NO se repita -->
+                            </div>
+                            <small class="text-muted"
+                                   th:text="${sem.duracion()}">
+                                4–6 horas sugeridas.
+                            </small>
+                        </div>
+
+                        <p class="text-muted mb-0"
+                           th:text="${sem.detalle()}">
+                            Descripción de los contenidos de la semana...
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================
+         REQUISITOS / RECURSOS
+    ========================= -->
+    <section class="row gy-4 mb-5">
+        <div class="col-md-6">
+            <h2 class="h5 mb-3">Requisitos recomendados</h2>
+            <ul class="list-unstyled">
+                <li class="mb-2" th:each="req : ${requisitos}">
+                    <i class="bi bi-dot"></i>
+                    <span th:text="${req}">
+                        Requisito del curso...
+                    </span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-6">
+            <h2 class="h5 mb-3">Recursos necesarios</h2>
+            <ul class="list-unstyled">
+                <li class="mb-2" th:each="rec : ${recursos}">
+                    <i class="bi bi-dot"></i>
+                    <span th:text="${rec}">
+                        Recurso necesario...
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ========================
+         CTA INSCRIPCIÓN
+    ========================= -->
+    <section class="inscribirse-box border rounded-3 p-4 bg-dark-2 mb-4">
+
+        <!-- No inscrito -->
+        <div th:if="${!inscrito}">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <h2 class="h5 mb-1">¿Listo para comenzar?</h2>
+                    <p class="mb-0 text-muted">
+                        Inscríbete para guardar tu progreso, marcar lecciones como completadas
+                        y retomar el curso cuando quieras.
+                    </p>
+                </div>
+                <form th:action="@{|/cursos/${curso.id}/inscribirme|}" method="post">
+                    <button class="btn btn-primary px-4" type="submit">Inscribirme ahora</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Ya inscrito -->
+        <div th:if="${inscrito}">
+            <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
+                <div>
+                    <h2 class="h5 mb-1">Ya estás inscrito en este curso</h2>
+                    <p class="mb-0 text-muted">
+                        Puedes ir al contenido del curso para continuar con tus lecciones.
+                    </p>
+                </div>
+                <a class="btn btn-outline-light px-4"
+                   th:href="@{|/cursos/${curso.id}|}">
+                    Ir al curso
+                </a>
+            </div>
+        </div>
+
+    </section>
+
+</main>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>
