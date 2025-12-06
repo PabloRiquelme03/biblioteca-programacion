@@ -42,57 +42,57 @@ public class CursoSeed {
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
                     .titulo("Qué es Java y para qué sirve")
-                    .url("https://www.oracle.com/java/technologies/what-is-java-es.html")
+                    .url("https://azure.microsoft.com/es-es/resources/cloud-computing-dictionary/what-is-java-programming-language")
                     .orden(1)
                     .build());
 
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
                     .titulo("Instalación del JDK y configuración del IDE")
-                    .url("https://www.youtube.com/watch?v=prmM4W0rS1E")
+                    .url("https://www.youtube.com/watch?v=-QG4TFNKM2w")
                     .orden(2)
                     .build());
 
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
                     .titulo("Tu primer programa en Java (Hola Mundo)")
-                    .url("https://www.youtube.com/watch?v=UuE0LzA1f3k")
+                    .url("https://www.youtube.com/watch?v=PMsTKxeNxGc")
                     .orden(3)
                     .build());
 
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
-                    .titulo("Variables, tipos de datos y operadores")
-                    .url("https://www.discoduroderoer.es/curso-de-programacion-java-desde-0-tema-3-variables-y-tipos-de-datos/")
+                    .titulo("Variables y tipos de datos")
+                    .url("https://openwebinars.net/blog/introduccion-a-java-datos-y-variables/")
                     .orden(4)
                     .build());
 
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
                     .titulo("Condicionales y bucles básicos")
-                    .url("https://www.discoduroderoer.es/curso-de-programacion-java-desde-0-tema-5-estructuras-de-control/")
+                    .url("https://fernandoarciniega.com/java-basico-6-control-de-flujo-condicionales-y-bucles-en-java/")
                     .orden(5)
                     .build());
 
             // Lecciones extra para que las semanas tengan más contenido
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
-                    .titulo("Arreglos y bucles avanzados")
-                    .url("https://www.discoduroderoer.es/curso-de-programacion-java-desde-0-tema-6-arrays/")
+                    .titulo("Arreglos")
+                    .url("https://www.programandojava.com/blog/arreglos-en-java/")
                     .orden(6)
                     .build());
 
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
-                    .titulo("Métodos y paso de parámetros")
-                    .url("https://www.discoduroderoer.es/curso-de-programacion-java-desde-0-tema-4-funciones/")
+                    .titulo("Métodos, argumentos y paso de parámetros")
+                    .url("https://openwebinars.net/blog/introduccion-a-java-metodos-parametros-y-argumentos/")
                     .orden(7)
                     .build());
 
             leccionRepo.save(Leccion.builder()
                     .curso(javaBasico)
-                    .titulo("Mini proyecto de consola con todo lo aprendido")
-                    .url("https://www.youtube.com/watch?v=4RZx0v-MWBM")
+                    .titulo("Operadores")
+                    .url("https://www.datacamp.com/es/doc/java/java-operators")
                     .orden(8)
                     .build());
 
