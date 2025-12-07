@@ -52,6 +52,13 @@
                 Disponibles
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link"
+               th:classappend="${tab} == 'completados' ? ' active' : ''"
+               th:href="@{/cursos(tab='completados')}">
+                Completados
+            </a>
+        </li>
     </ul>
 
     <!-- TAB INSCRITOS -->
@@ -141,6 +148,49 @@
                                     Inscribirme
                                 </button>
                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TAB COMPLETADOS -->
+    <div th:if="${tab} == 'completados'">
+
+        <div th:if="${#lists.isEmpty(completados)}" class="alert alert-secondary">
+            Aún no has completado ningún curso. Cuando marques uno como completado, aparecerá aquí.
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${!#lists.isEmpty(completados)}">
+            <div class="col" th:each="curso : ${completados}">
+                <div class="card h-100 shadow-sm bg-dark text-light border-success">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title mb-2" th:text="${curso.titulo}">Título del curso</h5>
+
+                        <p class="text-success fw-semibold small mb-2">
+                            Curso completado ✅
+                        </p>
+
+                        <p class="card-text small text-muted mb-3"
+                           th:text="${curso.descripcion}">
+                            Descripción del curso.
+                        </p>
+
+                        <div class="mb-3">
+                            <span class="badge bg-primary me-2"
+                                  th:text="${curso.lenguaje}">JAVA</span>
+                            <span class="badge bg-secondary"
+                                  th:text="${curso.nivel}">BASICO</span>
+                        </div>
+
+                        <div class="mt-auto">
+                            <!-- Ver contenido nuevamente -->
+                            <a class="btn btn-sm btn-outline-success w-100"
+                               th:href="@{'/cursos/' + ${curso.id}}">
+                                Ver contenido
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -26,22 +26,43 @@ public class CursoService {
         return cursoRepo.findAll();
     }
 
+    /**
+     * Cursos en los que el usuario está inscrito y NO ha finalizado.
+     */
     public List<Curso> listarInscritos(Principal p) {
         if (p == null) return List.of();
-        return inscripcionRepo.findByUsuarioEmail(p.getName())
+        return inscripcionRepo.findByUsuarioEmailAndFinalizadoFalse(p.getName())
                 .stream()
                 .map(Inscripcion::getCurso)
                 .toList();
     }
 
+    /**
+     * Cursos que el usuario ha finalizado.
+     */
+    public List<Curso> listarCompletados(Principal p) {
+        if (p == null) return List.of();
+        return inscripcionRepo.findByUsuarioEmailAndFinalizadoTrue(p.getName())
+                .stream()
+                .map(Inscripcion::getCurso)
+                .toList();
+    }
+
+    /**
+     * Cursos disponibles para inscribirse:
+     * todos los cursos MENOS los que ya tienen una inscripción (finalizada o no).
+     */
     public List<Curso> listarDisponibles(Principal p) {
         var todos = listarTodos();
         if (p == null) return todos;
-        var inscritosIds = listarInscritos(p).stream()
-                .map(Curso::getId)
+
+        var inscripcionesUsuario = inscripcionRepo.findByUsuarioEmail(p.getName());
+        var idsYaInscritos = inscripcionesUsuario.stream()
+                .map(ins -> ins.getCurso().getId())
                 .collect(Collectors.toSet());
+
         return todos.stream()
-                .filter(c -> !inscritosIds.contains(c.getId()))
+                .filter(c -> !idsYaInscritos.contains(c.getId()))
                 .toList();
     }
 
@@ -83,6 +104,18 @@ public class CursoService {
 
         progresoLeccionRepo.deleteByInscripcionId(insc.getId());
         inscripcionRepo.delete(insc);
+    }
+
+    /**
+     * Marcar manualmente un curso como completado por el usuario.
+     */
+    @Transactional
+    public void marcarCursoComoCompletado(Principal p, Long cursoId) {
+        if (p == null) return;
+        var insc = inscripcionRepo.findByUsuarioEmailAndCursoId(p.getName(), cursoId).orElse(null);
+        if (insc == null) return;
+        insc.setFinalizado(true);
+        inscripcionRepo.save(insc);
     }
 
     /* -------- Progreso de lecciones -------- */
