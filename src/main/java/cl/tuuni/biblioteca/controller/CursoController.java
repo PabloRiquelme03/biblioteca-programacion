@@ -144,25 +144,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Fundamentos del lenguaje y primeros programas.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Instalación de Java y el IDE, primer programa, tipos de datos primitivos y operaciones básicas."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Control de flujo y lógica básica.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas..",
                     "Uso de if/else, switch, bucles for y while, y resolución de problemas sencillos."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Métodos y organización del código.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Definición de métodos, parámetros, retorno de valores y división del programa en partes reutilizables."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Introducción a la POO en Java.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Concepto de clase y objeto, atributos, métodos y creación de tus primeros modelos simples."
             ));
 
@@ -189,25 +189,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Repaso de fundamentos y clases.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Repaso de clases, objetos y encapsulación, ajuste del entorno para el curso."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Herencia, polimorfismo e interfaces.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Diseño de jerarquías de clases, override de métodos y uso de interfaces."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Colecciones y manejo de excepciones.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "List, Set, Map, try/catch y excepciones personalizadas."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Streams y proyecto integrador.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Uso básico de streams y desarrollo de un mini-proyecto."
             ));
 
@@ -234,25 +234,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Arquitectura y repaso avanzado.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Capas de una aplicación, patrones básicos y configuración del entorno."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "APIs REST con Java.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Conceptos de API, endpoints, controladores y manejo de peticiones/respuestas."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Persistencia con bases de datos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Mapeo de entidades, operaciones CRUD y consultas básicas."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Proyecto integrador y siguientes pasos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Construcción de un pequeño backend y recomendaciones para profundizar."
             ));
 
@@ -279,25 +279,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Fundamentos y primeros scripts.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Sintaxis básica, variables, tipos de datos y pruebas en la consola del navegador."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Control de flujo y funciones.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Condicionales, bucles y funciones simples para organizar el código."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "DOM básico e interacciones sencillas.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Selección de elementos, cambio de texto y estilos, eventos básicos."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Mini-proyecto web.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Construcción de una página interactiva que combine lo aprendido."
             ));
 
@@ -324,25 +324,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Repaso sólido de fundamentos y funciones.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Repaso de sintaxis, tipos, funciones, parámetros y retorno. Introducción a scope y closures."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Manipulación del DOM y eventos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Selección de elementos, modificación de contenido y estilos, manejo de eventos."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Asincronía en JavaScript.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Concepto de asincronía, Promises y async/await. Consumo básico de APIs."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Organización del código y proyecto integrador.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Uso de módulos, separación por archivos y desarrollo de una pequeña aplicación web."
             ));
 
@@ -369,25 +369,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Event loop y asincronía avanzada.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Cola de tareas, microtareas, promesas encadenadas y manejo de errores asincrónicos."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Arquitectura de aplicaciones JavaScript.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Patrones básicos, separación en módulos y organización del proyecto."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Introducción a frameworks modernos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Conceptos comunes que luego usarás en frameworks (componentes, estado básico, rutas)."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Optimización y buenas prácticas.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Buenas prácticas de rendimiento, legibilidad y mantenimiento del código."
             ));
 
@@ -414,25 +414,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Introducción y primeros scripts.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Instalación, uso de la consola de Python, tipos básicos y operaciones simples."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Control de flujo y colecciones.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "If/else, bucles, listas y diccionarios con ejemplos prácticos."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Funciones y módulos básicos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Definición de funciones, parámetros, retorno y uso de módulos estándar sencillos."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Pequeños proyectos prácticos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Scripts que resuelvan tareas concretas (calculadoras, procesamiento de texto, etc.)."
             ));
 
@@ -459,25 +459,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Archivos y manejo de errores.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Lectura y escritura de archivos de texto, uso de try/except para controlar errores."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Entornos virtuales y paquetes.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Creación de entornos virtuales, instalación de librerías y organización de proyectos."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Librerías útiles y automatización.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Uso de librerías estándar y de terceros para automatizar tareas sencillas."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Proyecto integrador.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Desarrollo de un pequeño proyecto que combine archivos, librerías y buenas prácticas."
             ));
 
@@ -505,25 +505,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "POO en Python: clases y objetos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Repaso de clases, atributos, métodos, herencia y composición."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Manejo avanzado de errores y excepciones.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Tipos de excepciones, bloques try/except/else/finally y excepciones personalizadas."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Decoradores y funciones de orden superior.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Funciones como ciudadanos de primera clase, closures y creación de decoradores útiles."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Módulos, paquetes y trabajo con archivos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Estructura de paquetes, imports y lectura/escritura de archivos en proyectos."
             ));
 
@@ -544,25 +544,25 @@ public class CursoController {
             semanas.add(new SemanaView(
                     "Semana 1",
                     "Introducción y fundamentos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Revisión de conceptos base y configuración del entorno de trabajo."
             ));
             semanas.add(new SemanaView(
                     "Semana 2",
                     "Profundización en los temas centrales.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Ejercicios guiados para afianzar los contenidos más importantes."
             ));
             semanas.add(new SemanaView(
                     "Semana 3",
                     "Aplicación práctica.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Desarrollo de un pequeño proyecto que integre lo aprendido."
             ));
             semanas.add(new SemanaView(
                     "Semana 4",
                     "Cierre y siguientes pasos.",
-                    "4–6 horas sugeridas.",
+                    "1-2 horas sugeridas.",
                     "Repaso general y recomendaciones para seguir estudiando."
             ));
         }
