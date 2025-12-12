@@ -14,27 +14,23 @@ spring:
   thymeleaf:
     cache: false
 
-  # CONFIGURACIÓN DE CORREO (MAILTRAP)
   mail:
-    host: sandbox.smtp.mailtrap.io
-    port: 2525
-    username: b0ae9ae7391655
-    password: 2007fb81717b85-
+    host: smtp.gmail.com
+    port: 587
+    username: programycl@gmail.com          # <-- tu correo de Gmail
+    password: usyx xuhh npkd mrne      # <-- la de 16 caracteres
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
 
-# === CONFIGURACIÓN DEL SERVIDOR ===
 server:
   port: 8080
 
-# === LOGGING SQL ===
 logging:
   level:
     org.hibernate.SQL: debug
 
-# === VARIABLES PERSONALIZADAS PARA LA APP ===
 app:
   base-url: http://localhost:8080
   mail:
-    from: "Biblioteca <no-reply@biblioteca.local>"
+    from: "Biblioteca de programación <programycl@gmail.com>"   # <-- que coincida con el Gmail

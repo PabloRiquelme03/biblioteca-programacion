@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 
@@ -17,17 +18,25 @@ public class ProgresoController {
     @PostMapping("/progreso/{recursoId}/completar")
     public String completar(@PathVariable Long recursoId,
                             @RequestParam(required = false) String back,
-                            Principal principal) {
+                            Principal principal,
+                            RedirectAttributes ra) {
+
         servicio.completar(recursoId, principal);
+        ra.addFlashAttribute("ok",
+                "Recurso marcado como completado. Ahora podrás verlo en la pestaña \"Mi progreso\".");
+
         return "redirect:" + (back != null ? back : "/recursos");
     }
 
-    // 👇 NUEVO
     @PostMapping("/progreso/{recursoId}/desmarcar")
     public String desmarcar(@PathVariable Long recursoId,
                             @RequestParam(required = false) String back,
-                            Principal principal) {
+                            Principal principal,
+                            RedirectAttributes ra) {
+
         servicio.desmarcar(recursoId, principal);
+        ra.addFlashAttribute("ok", "Recurso marcado como pendiente nuevamente.");
+
         return "redirect:" + (back != null ? back : "/recursos");
     }
 

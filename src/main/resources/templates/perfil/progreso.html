@@ -8,6 +8,15 @@
 
 <main class="container py-4">
     <h1 class="mb-4">Mi progreso</h1>
+    <!-- TOAST / NOTIFICACIÓN -->
+    <div class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 2000;">
+        <div th:if="${ok}" class="toast align-items-center text-bg-success border-0 show auto-dismiss shadow-lg" role="alert">
+            <div class="d-flex">
+                <div class="toast-body" th:text="${ok}">Operación realizada correctamente.</div>
+                <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Cerrar"></button>
+            </div>
+        </div>
+    </div>
 
     <div th:if="${#lists.isEmpty(items)}" class="alert alert-info">
         Aún no has marcado recursos como completados.
