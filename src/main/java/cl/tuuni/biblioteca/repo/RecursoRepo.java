@@ -9,12 +9,14 @@ import java.util.List;
 
 public interface RecursoRepo extends JpaRepository<RecursoEducativo, Long> {
 
-    // Filtros
-    List<RecursoEducativo> findByNivel(Nivel nivel);
+    // ====== SOLO ACTIVOS (para la vista pública) ======
+    List<RecursoEducativo> findByActivoTrue();
 
-    List<RecursoEducativo> findByLenguaje(Lenguaje lenguaje);
+    List<RecursoEducativo> findByActivoTrueAndNivel(Nivel nivel);
 
-    List<RecursoEducativo> findByLenguajeAndNivel(Lenguaje lenguaje, Nivel nivel);
+    List<RecursoEducativo> findByActivoTrueAndLenguaje(Lenguaje lenguaje);
+
+    List<RecursoEducativo> findByActivoTrueAndLenguajeAndNivel(Lenguaje lenguaje, Nivel nivel);
 
     // Usado por ResourceSeed para evitar duplicados
     boolean existsByTitulo(String titulo);

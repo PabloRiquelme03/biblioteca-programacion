@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="es"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout :: head(${title})}"></head>
+<body>
+
+<div th:replace="~{layout :: navbar}"></div>
+
+<main class="container py-4" th:object="${item}">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h1 class="mb-0" th:text="${title}">Formulario</h1>
+        <a class="btn btn-outline-secondary" th:href="@{/admin/recursos}">← Volver</a>
+    </div>
+
+    <form method="post"
+          th:action="${item.id} != null ? @{|/admin/recursos/${item.id}|} : @{/admin/recursos}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <div class="row g-3">
+            <div class="col-12">
+                <label class="form-label">Título</label>
+                <input class="form-control" th:field="*{titulo}" required>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">Descripción</label>
+                <textarea class="form-control" th:field="*{descripcion}" rows="4"></textarea>
+            </div>
+
+            <div class="col-12">
+                <label class="form-label">URL (puede quedar vacía)</label>
+                <input class="form-control" th:field="*{url}" placeholder="https://...">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Tipo</label>
+                <select class="form-select" th:field="*{tipo}">
+                    <option th:each="t : ${tipos}" th:value="${t}" th:text="${t}"></option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Lenguaje</label>
+                <select class="form-select" th:field="*{lenguaje}">
+                    <option th:each="l : ${lenguajes}" th:value="${l}" th:text="${l}"></option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Nivel</label>
+                <select class="form-select" th:field="*{nivel}">
+                    <option th:each="n : ${niveles}" th:value="${n}" th:text="${n}"></option>
+                </select>
+            </div>
+
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" th:field="*{activo}">
+                    <label class="form-check-label">Activo (si está desmarcado NO aparece en “Recursos”)</label>
+                </div>
+            </div>
+
+            <div class="col-12 d-flex gap-2 mt-2">
+                <button class="btn btn-primary">Guardar</button>
+                <a class="btn btn-outline-secondary" th:href="@{/admin/recursos}">Cancelar</a>
+            </div>
+        </div>
+    </form>
+</main>
+
+<div th:replace="~{layout :: footer}"></div>
+<script th:replace="~{layout :: scripts}"></script>
+<script th:replace="~{layout :: appjs}"></script>
+</body>
+</html>

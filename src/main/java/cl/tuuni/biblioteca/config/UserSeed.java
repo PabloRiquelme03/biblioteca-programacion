@@ -10,20 +10,25 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Set;
 
-@Configuration @RequiredArgsConstructor
+@Configuration
+@RequiredArgsConstructor
 public class UserSeed {
+
     private final BCryptPasswordEncoder encoder;
 
     @Bean
     CommandLineRunner addAdmin(UsuarioRepo repo) {
         return args -> {
-            if (repo.findByEmail("admin@demo.cl") == null) {
+            // ✅ admin fijo para desarrollo
+            String adminEmail = "admin@demo.cl";
+
+            if (repo.findByEmail(adminEmail).isEmpty()) {
                 repo.save(Usuario.builder()
-                        .email("admin@demo.cl")
+                        .email(adminEmail)
                         .nombre("Admin")
                         .password(encoder.encode("admin123"))
                         .habilitado(true)
-                        .roles(Set.of("ROLE_ADMIN","ROLE_USER"))
+                        .roles(Set.of("ROLE_ADMIN", "ROLE_USER"))
                         .build());
             }
         };

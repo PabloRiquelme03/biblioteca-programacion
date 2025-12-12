@@ -18,10 +18,13 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
+                        // ✅ Admin
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
                         // recursos públicos
                         .requestMatchers(
                                 "/", "/recursos",
-                                "/css/**", "/js/**", "/imgs/**", "/videos/**", // 👈 AÑADIDO /videos/**
+                                "/css/**", "/js/**", "/imgs/**", "/videos/**",
                                 "/auth/**",
                                 "/error",
                                 "/cursos", "/cursos/*"
@@ -49,7 +52,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

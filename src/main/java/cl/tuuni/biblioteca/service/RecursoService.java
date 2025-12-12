@@ -23,47 +23,64 @@ public class RecursoService {
     private final ProgresoRepo progresoRepo;
 
     /**
-     * Lista recursos, filtrados por lenguaje/nivel,
-     * PERO excluyendo los que el usuario ya completó.
+     * Lista recursos ACTIVOS, filtrados por lenguaje/nivel,
+     * EXCLUYENDO los que el usuario ya completó.
      */
     public List<RecursoEducativo> listarFiltradoExcluyendoCompletados(
             Lenguaje lenguaje,
             Nivel nivel,
             Principal principal
     ) {
-        // obtener todos los recursos filtrados
-        List<RecursoEducativo> base = listarFiltrado(lenguaje, nivel);
+        List<RecursoEducativo> base = listarFiltradoActivos(lenguaje, nivel);
 
         if (principal == null) return base;
 
         var usuario = usuarioRepo.findByEmail(principal.getName()).orElse(null);
         if (usuario == null) return base;
 
-        // obtener ids completados
         Set<Long> completadosIds = progresoRepo.findByUsuarioIdOrderByFechaDesc(usuario.getId())
                 .stream()
                 .map(p -> p.getRecurso().getId())
                 .collect(Collectors.toSet());
 
-        // excluirlos
         return base.stream()
                 .filter(r -> !completadosIds.contains(r.getId()))
                 .toList();
     }
 
     /**
-     * Filtro original sin excluir nada.
+     * Filtro público: SOLO ACTIVOS.
      */
-    public List<RecursoEducativo> listarFiltrado(Lenguaje lenguaje, Nivel nivel) {
+    public List<RecursoEducativo> listarFiltradoActivos(Lenguaje lenguaje, Nivel nivel) {
         if (lenguaje != null && nivel != null) {
-            return repo.findByLenguajeAndNivel(lenguaje, nivel);
+            return repo.findByActivoTrueAndLenguajeAndNivel(lenguaje, nivel);
         }
         if (lenguaje != null) {
-            return repo.findByLenguaje(lenguaje);
+            return repo.findByActivoTrueAndLenguaje(lenguaje);
         }
         if (nivel != null) {
-            return repo.findByNivel(nivel);
+            return repo.findByActivoTrueAndNivel(nivel);
         }
+        return repo.findByActivoTrue();
+    }
+
+    // ============================
+    // ADMIN helpers
+    // ============================
+
+    public List<RecursoEducativo> listarTodosAdmin() {
         return repo.findAll();
+    }
+
+    public RecursoEducativo buscarPorId(Long id) {
+        return repo.findById(id).orElseThrow();
+    }
+
+    public RecursoEducativo guardar(RecursoEducativo r) {
+        return repo.save(r);
+    }
+
+    public void eliminar(Long id) {
+        repo.deleteById(id);
     }
 }

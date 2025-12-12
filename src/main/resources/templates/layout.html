@@ -21,6 +21,13 @@
             <a class="btn btn-outline-primary" th:href="@{/cursos}">Cursos</a>
             <a class="btn btn-outline-primary" th:href="@{/notas}">Notas</a>
 
+            <!-- ✅ Admin (solo ROLE_ADMIN) -->
+            <a class="btn btn-outline-warning"
+               th:href="@{/admin/recursos}"
+               sec:authorize="hasRole('ADMIN')">
+                Admin
+            </a>
+
             <!-- Link a Mi progreso si está autenticado -->
             <a class="btn btn-outline-success" th:href="@{/perfil/progreso}" sec:authorize="isAuthenticated()">
                 Mi progreso
@@ -45,6 +52,7 @@
         </div>
     </div>
 </nav>
+
 
 <footer class="text-center text-muted py-4" th:fragment="footer">
     © 2025 Biblioteca
